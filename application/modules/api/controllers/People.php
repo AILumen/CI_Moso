@@ -28,6 +28,8 @@ class People extends REST_Controller{
     //POST REQUESTS
     public function index_post() {
         $postDataArr = $this->post();
+    	/*echo $postDataArr["method"];
+    	die();*/
         if ((!is_null($postDataArr)) && sizeof($postDataArr) > 0) {
             switch ($postDataArr["method"]) {
                 case "listing" :
@@ -222,6 +224,8 @@ class People extends REST_Controller{
             $userData = $this->Api_model->get_people($user_location,$conditions,$isvalidAccess['VALUE']['user_id']);
             
             $userData = $this->Algo_model->shufflePeopleListing($pageNo,$isvalidAccess['VALUE']['user_id'],$userData);
+
+
             if($pageNo == 1){
                 if(count($userData) < PAGINATION_LIMIT){ //IF VIRAL EVENTS ARE LESS THAN DEFAUT PAGINATION
                     $key = $limit = PAGINATION_LIMIT - count($userData);
@@ -307,6 +311,7 @@ class People extends REST_Controller{
             }
             //VALIDATE ACCESS
             $valid = $this->Api_model->validateAccess($access_token);
+            // return $valid; 
             if(isset($valid['STATUS']) && !$valid['STATUS']){
                 //ACCESS TOKEN INVALID
                 $errorMsgArr = array();
@@ -319,6 +324,7 @@ class People extends REST_Controller{
             $postDataArr['userid'] = $valid['VALUE']['user_id'];
             //Validate Params
             $isvaid = $this->Api_model->validateparams($postDataArr);
+            // return $isvaid;
             if($isvaid['STATUS'] === FALSE){
                 //INVALID PARAM
                 $errorMsgArr = array();
@@ -341,7 +347,10 @@ class People extends REST_Controller{
             
             if(!empty($name)){
                 $updatedata['name'] = filter_var($name,FILTER_SANITIZE_STRING);
+            }else{
+            	$updatedata['name'] = "";
             }
+
             if(!empty($bio)){
                 $updatedata['userbio'] = filter_var($bio,FILTER_SANITIZE_STRING);
             }
@@ -390,6 +399,8 @@ class People extends REST_Controller{
             if(!empty($username)){
                 $updatedata['username'] = filter_var($username,FILTER_SANITIZE_STRING);
             }
+            // return $updatedata;
+
             if(!empty($updatedata)){
                 $this->Common_model->update_single('user',$updatedata,array('where' => array('userid' => $valid['VALUE']['user_id'])));
             }
@@ -400,7 +411,8 @@ class People extends REST_Controller{
             }
             //Fetch User Info
             $value = $this->Api_model->userInfo($valid['VALUE']['user_id']);
-//            $value['access_token'] = $access_token;
+            // return $value;
+			//$value['access_token'] = $access_token;
             $errorMsgArr = array();
             $errorMsgArr['CODE'] = SUCCESS_CODE;
             $errorMsgArr['STATUS'] = TRUE;
@@ -516,7 +528,7 @@ class People extends REST_Controller{
      * @params: array
      * @return: array
      * **/
-   private function unlike($postDataArr){
+   	private function unlike($postDataArr){
        $access_token = isset($postDataArr['access_token']) ? filter_var($postDataArr['access_token'], FILTER_SANITIZE_STRING) : '';
        $device_type = isset($postDataArr['device_type']) ? filter_var($postDataArr['device_type'], FILTER_SANITIZE_NUMBER_INT) : '';
        $user_id = isset($postDataArr['user_id']) ? filter_var($postDataArr['user_id'],FILTER_SANITIZE_STRING) : '';
@@ -671,13 +683,13 @@ class People extends REST_Controller{
         }
        
     }
-   /*
+   	/*
      * FunctionName: unfollow
      * Description: unfollow user
      * @params: array
      * @return: array
      * **/
-   private function unfollow($postDataArr){
+   	private function unfollow($postDataArr){
        
        //Validate Login Parameters
         $this->form_validation->set_data($postDataArr);
@@ -743,13 +755,13 @@ class People extends REST_Controller{
         }
    
     }
-   /*
-    * FunctionName: view
+   	/*
+ 	* FunctionName: view
     * Description: mark user profile view
     * @params: array
     * @return: array
     * **/  
-   private function view($postDataArr){
+   	private function view($postDataArr){
        $access_token = isset($postDataArr['access_token']) ? filter_var($postDataArr['access_token'], FILTER_SANITIZE_STRING) : '';
        $device_type = isset($postDataArr['device_type']) ? filter_var($postDataArr['device_type'], FILTER_SANITIZE_NUMBER_INT) : '';
        $user_id = isset($postDataArr['user_id']) ? filter_var($postDataArr['user_id'],FILTER_SANITIZE_STRING) : '';
@@ -819,14 +831,14 @@ class People extends REST_Controller{
             $errorMsgArr['MESSAGE'] = $this->lang->line('ACCESSTOKEN_MISSING');
             $this->response($errorMsgArr);
        }
-   }
-   /*
-    * FunctionName: report
-    * Description: report user
-    * @params: array
-    * @return: array
-    * **/
-   private function report($postDataArr){
+   	}
+	/*
+	* FunctionName: report
+	* Description: report user
+	* @params: array
+	* @return: array
+	* **/
+   	private function report($postDataArr){
        $access_token = isset($postDataArr['access_token']) ? filter_var($postDataArr['access_token'], FILTER_SANITIZE_STRING) : '';
        $device_type = isset($postDataArr['device_type']) ? filter_var($postDataArr['device_type'], FILTER_SANITIZE_NUMBER_INT) : '';
        $user_id = isset($postDataArr['user_id']) ? filter_var($postDataArr['user_id'],FILTER_SANITIZE_STRING) : '';
@@ -914,14 +926,14 @@ class People extends REST_Controller{
             $this->response($errorMsgArr);
        }
        
-   }
-   /*
-    * FunctionName: followerlisting
-    * Description: follower listing for logged user
-    * @params: array
-    * @return: array
-    * **/
-   private function followerlisting($postDataArr){
+   	}
+	/*
+	* FunctionName: followerlisting
+	* Description: follower listing for logged user
+	* @params: array
+	* @return: array
+	* **/
+   	private function followerlisting($postDataArr){
        $access_token = isset($postDataArr['access_token']) ? filter_var($postDataArr['access_token'], FILTER_SANITIZE_STRING) : '';
        $device_type = isset($postDataArr['device_type']) ? filter_var($postDataArr['device_type'], FILTER_SANITIZE_NUMBER_INT) : '';
        
@@ -977,14 +989,14 @@ class People extends REST_Controller{
             $errorMsgArr['MESSAGE'] = $this->lang->line('ACCESSTOKEN_MISSING');
             $this->response($errorMsgArr);
        }
-   }
-   /*
-    * FunctionName: markFollowing
-    * Description: mark the users being followed by logges user
-    * @params: array
-    * @return: array
-    * **/
-   private function markFollowing($loggeduser,$data){
+   	}
+	/*
+	* FunctionName: markFollowing
+	* Description: mark the users being followed by logges user
+	* @params: array
+	* @return: array
+	* **/
+   	private function markFollowing($loggeduser,$data){
            if(!empty($data)){
                foreach ($data as $key => $user){
                    $response = $this->Common_model->fetch_data('user_follower','id',array('where' => array('user_id' => $user['user_id'],'follower_id' => $loggeduser, "status" => ACTIVE)));
@@ -992,14 +1004,14 @@ class People extends REST_Controller{
                }
                return $data;
            }
-       }
-   /*
-    * FunctionName: likeslisting
-    * Description: likes listing for logged user
-    * @params: array
-    * @return: array
-    * **/
-   private function likeslisting($postDataArr){
+   	}
+	/*
+	* FunctionName: likeslisting
+	* Description: likes listing for logged user
+	* @params: array
+	* @return: array
+	* **/
+   	private function likeslisting($postDataArr){
        $access_token = isset($postDataArr['access_token']) ? filter_var($postDataArr['access_token'], FILTER_SANITIZE_STRING) : '';
        $device_type = isset($postDataArr['device_type']) ? filter_var($postDataArr['device_type'], FILTER_SANITIZE_NUMBER_INT) : '';
        
@@ -1055,14 +1067,14 @@ class People extends REST_Controller{
             $errorMsgArr['MESSAGE'] = $this->lang->line('ACCESSTOKEN_MISSING');
             $this->response($errorMsgArr);
        }
-   }
-   /*
-    * FunctionName: viewedme
-    * Description: list of people who viewed the logged user
-    * @params: array
-    * @return: array
-    * **/
-   private function viewedme($postDataArr){
+   	}
+	/*
+	* FunctionName: viewedme
+	* Description: list of people who viewed the logged user
+	* @params: array
+	* @return: array
+	* **/
+   	private function viewedme($postDataArr){
        $access_token = isset($postDataArr['access_token']) ? filter_var($postDataArr['access_token'], FILTER_SANITIZE_STRING) : '';
        $device_type = isset($postDataArr['device_type']) ? filter_var($postDataArr['device_type'], FILTER_SANITIZE_NUMBER_INT) : '';
        $user_location = isset($postDataArr['user_location']) ? filter_var_array($postDataArr['user_location'],FILTER_VALIDATE_FLOAT) : '';
@@ -1101,6 +1113,7 @@ class People extends REST_Controller{
             }
             //FETCH LISTING
             $viewedMe = $this->Api_model->viewdmelisting($valid['VALUE']['user_id'],$user_location);
+            // return $viewedMe;
             if(!empty($viewedMe)){
                 foreach ($viewedMe as $key => $row) {
                     // replace 0 with the field's index/key
@@ -1129,14 +1142,14 @@ class People extends REST_Controller{
             $errorMsgArr['MESSAGE'] = $this->lang->line('ACCESSTOKEN_MISSING');
             $this->response($errorMsgArr);
        }
-   }
-   /*
-    * FunctionName: liveevets
-    * Description: list of live events of the logged user
-    * @params: array
-    * @return: array
-    * **/
-   private function liveevets($postDataArr){
+   	}
+	/*
+	* FunctionName: liveevets
+	* Description: list of live events of the logged user
+	* @params: array
+	* @return: array
+	* **/
+   	private function liveevets($postDataArr){
        $access_token = isset($postDataArr['access_token']) ? filter_var($postDataArr['access_token'], FILTER_SANITIZE_STRING) : '';
        $device_type = isset($postDataArr['device_type']) ? filter_var($postDataArr['device_type'], FILTER_SANITIZE_NUMBER_INT) : '';
        if(!empty($access_token)){
@@ -1179,14 +1192,14 @@ class People extends REST_Controller{
             $errorMsgArr['MESSAGE'] = $this->lang->line('ACCESSTOKEN_MISSING');
             $this->response($errorMsgArr);
        }
-   }
-   /*
-    * FunctionName: userlikelist
-    * Description: list of other user likes
-    * @params: array
-    * @return: array
-    * **/
-   private function userlikelist($postDataArr){
+   	}
+	/*
+	* FunctionName: userlikelist
+	* Description: list of other user likes
+	* @params: array
+	* @return: array
+	* **/
+   	private function userlikelist($postDataArr){
        $access_token = isset($postDataArr['access_token']) ? filter_var($postDataArr['access_token'], FILTER_SANITIZE_STRING) : '';
        $device_type = isset($postDataArr['device_type']) ? filter_var($postDataArr['device_type'], FILTER_SANITIZE_NUMBER_INT) : '';
        $user_id = isset($postDataArr['user_id']) ? filter_var($postDataArr['user_id'], FILTER_SANITIZE_STRING) : '';
@@ -1233,15 +1246,15 @@ class People extends REST_Controller{
             $errorMsgArr['MESSAGE'] = $this->lang->line('ACCESSTOKEN_MISSING');
             $this->response($errorMsgArr);
        }
-   }
-   /*
-    * FunctionName: userFollowList
-    * Description: list of other user followers
-    * @params: array
-    * @return: array
-    * **/
+   	}
+	/*
+	* FunctionName: userFollowList
+	* Description: list of other user followers
+	* @params: array
+	* @return: array
+	* **/
    
-   private function userfollowList($postDataArr){
+   	private function userfollowList($postDataArr){
        $access_token = isset($postDataArr['access_token']) ? filter_var($postDataArr['access_token'], FILTER_SANITIZE_STRING) : '';
        $device_type = isset($postDataArr['device_type']) ? filter_var($postDataArr['device_type'], FILTER_SANITIZE_NUMBER_INT) : '';
        $user_id = isset($postDataArr['user_id']) ? filter_var($postDataArr['user_id'], FILTER_SANITIZE_STRING) : '';
@@ -1288,14 +1301,14 @@ class People extends REST_Controller{
             $errorMsgArr['MESSAGE'] = $this->lang->line('ACCESSTOKEN_MISSING');
             $this->response($errorMsgArr);
        }
-   }
+   	}
     /*
     * FunctionName: userliveevents
     * Description: list of other user live events
     * @params: array
     * @return: array
     * **/
-   private function userliveevents($postDataArr){
+   	private function userliveevents($postDataArr){
        $access_token = isset($postDataArr['access_token']) ? filter_var($postDataArr['access_token'], FILTER_SANITIZE_STRING) : '';
        $device_type = isset($postDataArr['device_type']) ? filter_var($postDataArr['device_type'], FILTER_SANITIZE_NUMBER_INT) : '';
        $user_id = isset($postDataArr['user_id']) ? filter_var($postDataArr['user_id'], FILTER_SANITIZE_STRING) : '';
@@ -1363,14 +1376,14 @@ class People extends REST_Controller{
             $errorMsgArr['MESSAGE'] = $this->lang->line('ACCESSTOKEN_MISSING');
             $this->response($errorMsgArr);
        }
-   }
-   /**
-    * @Function block
-    * @param type $postDataArr array of access_token device_type and user_id to block
-    * @description allows logged user to  block any user
-    */
+   	}
+	/**
+	* @Function block
+	* @param type $postDataArr array of access_token device_type and user_id to block
+	* @description allows logged user to  block any user
+	*/
    
-   private function block($postDataArr){
+   	private function block($postDataArr){
        $access_token = isset($postDataArr['access_token']) ? filter_var($postDataArr['access_token'], FILTER_SANITIZE_STRING) : '';
        $device_type = isset($postDataArr['device_type']) ? filter_var($postDataArr['device_type'], FILTER_SANITIZE_NUMBER_INT) : '';
        $user_id = isset($postDataArr['user_id']) ? filter_var($postDataArr['user_id'], FILTER_SANITIZE_STRING) : '';
@@ -1455,13 +1468,13 @@ class People extends REST_Controller{
             $errorMsgArr['MESSAGE'] = $this->lang->line('ACCESSTOKEN_MISSING');
             $this->response($errorMsgArr);
        }
-   }
-   /**
-    * 
-    * @param type $postDataArr access_toke, device_type, user_location,user_id
-    * @return  array user profile information
-    */
-   private function userprofile($postDataArr){
+   	}
+	/**
+	* 
+	* @param type $postDataArr access_toke, device_type, user_location,user_id
+	* @return  array user profile information
+	*/
+   	private function userprofile($postDataArr){
         //Validate all information
         $this->form_validation->set_data($postDataArr);
         $this->form_validation->set_rules($this->Validation_model->userprofileValidation($postDataArr));
@@ -1526,13 +1539,13 @@ class People extends REST_Controller{
             $errorMsgArr['VALUE'] = $userData;
             $this->response($errorMsgArr);
        
-   }
-   /**
-    * 
-    * @param int $timestamp timestamp in seconds to fetch time string
-    * @return string time string
-    */
-   private function fetchTime($timestamp){
+   	}
+	/**
+	* 
+	* @param int $timestamp timestamp in seconds to fetch time string
+	* @return string time string
+	*/
+	private function fetchTime($timestamp){
        $now = time();
        if(!empty($timestamp)){
            $years = date("Y",$now) - date("Y", $timestamp);
@@ -1557,13 +1570,13 @@ class People extends REST_Controller{
                
        }
        return $timestring;
-   }
-   /**
-    * 
-    * @param array $postDataArr access_token, device_type
-    * @return array List of all blocked users by the logged in user
-    */
-   private function blockedlist($postDataArr){
+   	}
+	/**
+	* 
+	* @param array $postDataArr access_token, device_type
+	* @return array List of all blocked users by the logged in user
+	*/
+	private function blockedlist($postDataArr){
        //Validate all information
         $this->form_validation->set_data($postDataArr);
         $this->form_validation->set_rules($this->Validation_model->defaultValidation($postDataArr));
@@ -1602,15 +1615,13 @@ class People extends REST_Controller{
         $errorMsgArr['MESSAGE'] = $this->lang->line('BLOCKED_LIST');
         $errorMsgArr['VALUE'] = $blockedList;
         $this->response($errorMsgArr);
-        
-        
-   }
-   /**
-    * 
-    * @param array $postDataArr access_token, device_type, user_id -- ID of the blocked user
-    * @return array status of unblock
-    */
-   private function unblock($postDataArr){
+   	}
+	/**
+	* 
+	* @param array $postDataArr access_token, device_type, user_id -- ID of the blocked user
+	* @return array status of unblock
+	*/
+   	private function unblock($postDataArr){
        //Validate all information
         $this->form_validation->set_data($postDataArr);
         $this->form_validation->set_rules($this->Validation_model->userprofileValidation($postDataArr));
@@ -1667,13 +1678,13 @@ class People extends REST_Controller{
             $errorMsgArr['MESSAGE'] = $this->lang->line('UNABLE_TO_PROCESS');
             $this->response($errorMsgArr);
         }
-   }
-   /**
-    * 
-    * @param array $postDataArr access_token, device_type, reason
-    * @return array Status of app report
-    */
-   private function reportApp($postDataArr){
+   	}
+	/**
+	* 
+	* @param array $postDataArr access_token, device_type, reason
+	* @return array Status of app report
+	*/
+   	private function reportApp($postDataArr){
        //Validate all information
         $this->form_validation->set_data($postDataArr);
         $this->form_validation->set_rules($this->Validation_model->reportappValidation($postDataArr));
@@ -1725,13 +1736,14 @@ class People extends REST_Controller{
             $errorMsgArr['MESSAGE'] = $this->lang->line('UNABLE_TO_PROCESS');
             $this->response($errorMsgArr);
         }
-   }
-   /**
-    * 
-    * @param type $postDataArr
-    */
-   private function settings($postDataArr){
-       //Validate all information
+	}
+	/**
+	* 
+	* @param type $postDataArr
+	*/
+	private function settings($postDataArr){
+       	//Validate all information
+   		// return $postDataArr;
         $this->form_validation->set_data($postDataArr);
         $this->form_validation->set_rules($this->Validation_model->settingsValidation($postDataArr));
         //RETURN IF VALIDATION FAILED
@@ -1765,18 +1777,25 @@ class People extends REST_Controller{
         $updateArr = [];
         //build update array
             
-        if(!empty($social_account) && empty($updateArr)){
-            $updateArr = ['social_accounts' => $social_account];
+        if(!empty($postDataArr['social_account']) && empty($updateArr)){
+            $updateArr = ['social_accounts' => $postDataArr['social_account']];
         }
-        if(!empty($push_notification) && empty($updateArr)){
-            $updateArr = ['push_notification' => $push_notification];
+        if(!empty($postDataArr['push_notification']) && empty($updateArr)){
+            $updateArr = ['push_notification' => $postDataArr['push_notification']];
         }
-        if(!empty($sound) && empty($updateArr)){
-            $updateArr = ["sound" => $sound];
+        if(!empty($postDataArr['sound']) && empty($updateArr)){
+            $updateArr = ["sound" => $postDataArr['sound']];
         }
-        if(!empty($map) && empty($updateArr)){
-            $updateArr = ["map_type" => $map];
+        if(!empty($postDataArr['map']) && empty($updateArr)){
+            $updateArr = ["map_type" => $postDataArr['map']];
         }
+        if(!empty($postDataArr['location_sharing']) && empty($updateArr)){
+            $updateArr = ["location_sharing" => $postDataArr['location_sharing']];
+        }
+
+        // return $updateArr;
+
+
         if(!empty($updateArr)){
             $updateid = $this->Common_model->update_single("user_settings",$updateArr,array("where" => array("userid" => $valid['VALUE']['user_id'])));
             if($updateid){
@@ -1803,13 +1822,13 @@ class People extends REST_Controller{
             $errorMsgArr['MESSAGE'] = $this->lang->line('NOTHING_TO_UPDATE');
             $this->response($errorMsgArr);
         }
-   }
-   /**
-    * 
-    * @param type $postDataArr access_token, device_type, user_location
-    * @return array list of people logged user has liked
-    */
-   private function peopleliked($postDataArr){
+   	}
+	/**
+	* 
+	* @param type $postDataArr access_token, device_type, user_location
+	* @return array list of people logged user has liked
+	*/
+   	private function peopleliked($postDataArr){
        //Validate all information
         $this->form_validation->set_data($postDataArr);
         $this->form_validation->set_rules($this->Validation_model->peoplelikedValidation($postDataArr));
@@ -1873,14 +1892,14 @@ class People extends REST_Controller{
         $errorMsgArr['VALUE'] = $peopleData;
         $this->response($errorMsgArr);
         
-   }
-   /**
-    * 
-    * @param type $postDataArr access_token, device_type, user_location
-    * @return array list of live events logged user has liked
-    */
-   private function eventliked($postDataArr){
-       //Validate all information
+   	}
+	/**
+	* 
+	* @param type $postDataArr access_token, device_type, user_location
+	* @return array list of live events logged user has liked
+	*/
+   	private function eventliked($postDataArr){
+       	//Validate all information
         $this->form_validation->set_data($postDataArr);
         $this->form_validation->set_rules($this->Validation_model->eventlikedValidation($postDataArr));
         //RETURN IF VALIDATION FAILED
@@ -1893,13 +1912,13 @@ class People extends REST_Controller{
             $errorMsgArr['MESSAGE'] = $errors[0];
             $this->response($errorMsgArr);
         }
-       //Sanitize all information
-       $access_token = filter_var($postDataArr['access_token'], FILTER_SANITIZE_STRING);
-       $device_type = filter_var($postDataArr['device_type'], FILTER_SANITIZE_NUMBER_INT);
-       $user_location = isset($postDataArr['user_location']) ? filter_var_array($postDataArr['user_location'],FILTER_VALIDATE_FLOAT) : '';
-       
-       //Validate Access 
-        $valid = $this->Api_model->validateAccess($access_token);
+		//Sanitize all information
+		$access_token = filter_var($postDataArr['access_token'], FILTER_SANITIZE_STRING);
+		$device_type = filter_var($postDataArr['device_type'], FILTER_SANITIZE_NUMBER_INT);
+		$user_location = isset($postDataArr['user_location']) ? filter_var_array($postDataArr['user_location'],FILTER_VALIDATE_FLOAT) : '';
+
+		//Validate Access 
+		$valid = $this->Api_model->validateAccess($access_token);
         //if not valid, return
         if(isset($valid['STATUS']) && !$valid['STATUS']){
             $errorMsgArr = array();
@@ -1942,13 +1961,13 @@ class People extends REST_Controller{
         $errorMsgArr['MESSAGE'] = $this->lang->line('LISTING_SUCCESSFUL');
         $errorMsgArr['VALUE'] = $eventData;
         $this->response($errorMsgArr);
-   }
-   /**
-    * 
-    * @param type $postDataArr access_token, device_type, user_location
-    * @return array list of all live events by friends
-    */
-   private function eventbyfriends($postDataArr){
+   	}
+	/**
+	* 
+	* @param type $postDataArr access_token, device_type, user_location
+	* @return array list of all live events by friends
+	*/
+   	private function eventbyfriends($postDataArr){
        //Validate all information
         $this->form_validation->set_data($postDataArr);
         $this->form_validation->set_rules($this->Validation_model->eventbyfriendsValidation($postDataArr));
@@ -1962,13 +1981,13 @@ class People extends REST_Controller{
             $errorMsgArr['MESSAGE'] = $errors[0];
             $this->response($errorMsgArr);
         }
-       //Sanitize all information
-       $access_token = filter_var($postDataArr['access_token'], FILTER_SANITIZE_STRING);
-       $device_type = filter_var($postDataArr['device_type'], FILTER_SANITIZE_NUMBER_INT);
-       $user_location = isset($postDataArr['user_location']) ? filter_var_array($postDataArr['user_location'],FILTER_VALIDATE_FLOAT) : '';
-       
-       //Validate Access 
-        $valid = $this->Api_model->validateAccess($access_token);
+		//Sanitize all information
+		$access_token = filter_var($postDataArr['access_token'], FILTER_SANITIZE_STRING);
+		$device_type = filter_var($postDataArr['device_type'], FILTER_SANITIZE_NUMBER_INT);
+		$user_location = isset($postDataArr['user_location']) ? filter_var_array($postDataArr['user_location'],FILTER_VALIDATE_FLOAT) : '';
+
+		//Validate Access 
+		$valid = $this->Api_model->validateAccess($access_token);
         //if not valid, return
         if(isset($valid['STATUS']) && !$valid['STATUS']){
             $errorMsgArr = array();
@@ -2011,13 +2030,13 @@ class People extends REST_Controller{
         $errorMsgArr['MESSAGE'] = $this->lang->line('LISTING_SUCCESSFUL');
         $errorMsgArr['VALUE'] = $eventData;
         $this->response($errorMsgArr);
-   }
-   /**
-    * 
-    * @param array $postDataArr access_token, device_type
-    * @return array settings of a user
-    */
-   private function usersettings($postDataArr){
+   	}
+	/**
+	* 
+	* @param array $postDataArr access_token, device_type
+	* @return array settings of a user
+	*/
+   	private function usersettings($postDataArr){
        //Validate all information
         $this->form_validation->set_data($postDataArr);
         $this->form_validation->set_rules($this->Validation_model->defaultValidation($postDataArr));
@@ -2031,12 +2050,12 @@ class People extends REST_Controller{
             $errorMsgArr['MESSAGE'] = $errors[0];
             $this->response($errorMsgArr);
         }
-        //Sanitize all information
-       $access_token = filter_var($postDataArr['access_token'], FILTER_SANITIZE_STRING);
-       $device_type = filter_var($postDataArr['device_type'], FILTER_SANITIZE_NUMBER_INT);
-       
-       //Validate Access 
-        $valid = $this->Api_model->validateAccess($access_token);
+		//Sanitize all information
+		$access_token = filter_var($postDataArr['access_token'], FILTER_SANITIZE_STRING);
+		$device_type = filter_var($postDataArr['device_type'], FILTER_SANITIZE_NUMBER_INT);
+
+		//Validate Access 
+		$valid = $this->Api_model->validateAccess($access_token);
         //if not valid, return
         if(isset($valid['STATUS']) && !$valid['STATUS']){
             $errorMsgArr = array();
@@ -2072,21 +2091,21 @@ class People extends REST_Controller{
             }
         }
         
-       //Return information
-        $errorMsgArr = array();
-        $errorMsgArr['CODE'] = SUCCESS_CODE;
-        $errorMsgArr['STATUS'] = TRUE;
-        $errorMsgArr['APICODERESULT'] = $this->lang->line('APIRESULT_SUCCESS');
-        $errorMsgArr['MESSAGE'] = $this->lang->line('LISTING_SUCCESSFUL');
-        $errorMsgArr['VALUE'] = $usersettings;
-        $this->response($errorMsgArr);
-   }
-   /**
-    * 
-    * @param array $postDataArr access_token, device_type
-    * @return array settings of app
-    */
-   private function appsettings($postDataArr){
+		//Return information
+		$errorMsgArr = array();
+		$errorMsgArr['CODE'] = SUCCESS_CODE;
+		$errorMsgArr['STATUS'] = TRUE;
+		$errorMsgArr['APICODERESULT'] = $this->lang->line('APIRESULT_SUCCESS');
+		$errorMsgArr['MESSAGE'] = $this->lang->line('LISTING_SUCCESSFUL');
+		$errorMsgArr['VALUE'] = $usersettings;
+		$this->response($errorMsgArr);
+	}
+	/**
+	* 
+	* @param array $postDataArr access_token, device_type
+	* @return array settings of app
+	*/
+   	private function appsettings($postDataArr){
        //Validate all information
         $this->form_validation->set_data($postDataArr);
         $this->form_validation->set_rules($this->Validation_model->defaultValidation($postDataArr));
@@ -2126,13 +2145,13 @@ class People extends REST_Controller{
         $errorMsgArr['MESSAGE'] = $this->lang->line('LISTING_SUCCESSFUL');
         $errorMsgArr['VALUE'] = $appsettings;
         $this->response($errorMsgArr);
-   }
-   /**
-    * 
-    * @param array $postDataArr access_token, device_type
-    * @return array Delete Complete User Profile.
-    */
-   private function removeprofile($postDataArr){
+   	}
+	/**
+	* 
+	* @param array $postDataArr access_token, device_type
+	* @return array Delete Complete User Profile.
+	*/
+   	private function removeprofile($postDataArr){
        //Validate all information
         $this->form_validation->set_data($postDataArr);
         $this->form_validation->set_rules($this->Validation_model->defaultValidation($postDataArr));
@@ -2147,10 +2166,10 @@ class People extends REST_Controller{
             $this->response($errorMsgArr);
         }
         //Sanitize all information
-       $access_token = filter_var($postDataArr['access_token'], FILTER_SANITIZE_STRING);
-       $device_type = filter_var($postDataArr['device_type'], FILTER_SANITIZE_NUMBER_INT);
+		$access_token = filter_var($postDataArr['access_token'], FILTER_SANITIZE_STRING);
+		$device_type = filter_var($postDataArr['device_type'], FILTER_SANITIZE_NUMBER_INT);
        
-       //Validate Access 
+		//Validate Access 
         $valid = $this->Api_model->validateAccess($access_token);
         //if not valid, return
         if(isset($valid['STATUS']) && !$valid['STATUS']){
@@ -2184,6 +2203,6 @@ class People extends REST_Controller{
             $errorMsgArr['MESSAGE'] = $this->lang->line('UNABLE_TO_PROCESS');
             $this->response($errorMsgArr);
         }
-   }
+   	}
 }
 

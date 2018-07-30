@@ -110,7 +110,6 @@ define('INSTA_BASE_TOKEN', $instaTokenUrl);
 
 $baseurl = 'http://' . $_SERVER['SERVER_NAME'];
 define('BASE_URL', $baseurl);
-
 defined("OPEN_SSL_KEY") OR define('OPEN_SSL_KEY', '011b519a043dcb915314695e1ce560dd4e29dae06867cdb701ffc96350e18caf');
 
 //bulk sms gateway credentials sinch
@@ -166,6 +165,7 @@ define('GH_BANNED', '6');
 define('REPORTED', '7');
 define('INACTIVE','0');
 define('EVENT_ENDED','3');
+define('LOCATION_ACCESS_OFF','2');
 
 //OTP Expire Time 
 

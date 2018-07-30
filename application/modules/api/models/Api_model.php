@@ -19,6 +19,8 @@ class Api_model extends CI_Model {
      * Date: 07/02/2018
      */
     public function validateparams($params){
+        /*print_r($params);
+        die();*/
         if(!empty($params)){
             if(isset($params['email']) && !empty($params['email'])){
                 if(!filter_var($params['email'],FILTER_VALIDATE_EMAIL)){
@@ -67,10 +69,11 @@ class Api_model extends CI_Model {
                     return $errorMsgArr;
                 }
             }
+            // echo "gau";die();
             if(isset($params['bio']) && !empty($params['bio'])){
                 $isValidbio = $this->validateForSwearWords($params['bio']);
                 //check if username is allowed
-                if($isValidbio == false || strpos(strtolower($params['name']),'moso')!==FALSE || strpos(strtolower($params['name']),'moresocial')!==FALSE){
+                if($isValidbio == false || (!empty($params['name']) && strpos(strtolower($params['name']),'moso')!==FALSE) || (!empty($params['name']) && strpos(strtolower($params['name']),'moresocial')!==FALSE) ) {
                     $errorMsgArr = array();
                     $errorMsgArr['STATUS'] = FALSE;
                     $errorMsgArr['MESSAGE'] = $this->lang->line('BIO_NOT_ALLOWED');
@@ -484,6 +487,7 @@ class Api_model extends CI_Model {
             $this->db->select("u.userid,u.name,u.username,u.latitude,u.longitude,u.image,u.thumbnail,u.createdon,userbio as user_bio,count( DISTINCT ul.id) as user_likes,count( DISTINCT uf.id) as user_followers,".$distance);
             //Check if social accounts are active in setting, If onn then return actual values else return blank values
             $this->db->select('IF(us.social_accounts = "1",u.facebookprof,"") as facebookprof, IF(us.social_accounts ="1",u.instaprof,"") as instaprof',FALSE);
+            $this->db->select('us.location_sharing as location_access');
             //check if user is registered with in defined time frame, if yes then return true else return flase
             $this->db->select('IF('.time().' - u.createdon <= '.$appSettings['new_user_time'].',true,false) as new',FALSE);
             $this->db->from('user u');
@@ -494,6 +498,7 @@ class Api_model extends CI_Model {
                 //eleminate blocked users from the list
                 $this->db->where('u.userid NOT IN (SELECT user_id FROM blocked_user WHERE blocked_by ='.$user_id.')', NULL, FALSE);
                 $this->db->where('u.userid NOT IN (SELECT blocked_by FROM blocked_user WHERE user_id ='.$user_id.')', NULL, FALSE);
+                // $this->db->where('u.location_access',ACTIVE);
             }
             $this->db->group_by('u.userid');
             $this->db->group_by('us.id');
@@ -503,6 +508,11 @@ class Api_model extends CI_Model {
             }
             $query = $this->db->get();
             $userInfo = $query->result_array();
+            foreach ($userInfo as $key => $value) {
+                if($value['location_access'] == LOCATION_ACCESS_OFF ){ // means location sharing is off by user
+                    $userInfo[$key]['distance'] = "";
+                }
+            }
             return $userInfo;
         } catch (Exception $ex) {
             echo $e->getMessage();
@@ -607,6 +617,8 @@ class Api_model extends CI_Model {
     public function userInfo($user_id){
         $userInfo = array();
         if(!empty($user_id)){
+            // return count($this->mediaLikedByUser($user_id));
+            // die();
             $user_settings = user_settings($user_id, array("social_accounts"));
             if(!empty($user_settings) && $user_settings['social_accounts'] == "1"){
                 $this->db->select("u.facebookprof as fb_url, u.instaprof as insta_url");
@@ -616,7 +628,7 @@ class Api_model extends CI_Model {
             $this->db->where("u.userid",$user_id);
             $query = $this->db->get();
             $userInfo = $query->row_array();
-            $userInfo['likes'] = $this->userLikes($user_id);
+            $userInfo['likes'] = (string) ($this->userLikes($user_id) + count($this->mediaLikedByUser($user_id)));
             $userInfo['followers'] = $this->userFollowers($user_id);
             $userInfo['events'] = $this->userEvents($user_id);
         }
@@ -774,19 +786,28 @@ class Api_model extends CI_Model {
         if(!empty($user_id)){
             $distance = "( 3959 * acos ( cos ( radians(".$user_location['lat'].") ) * cos( radians( u.latitude ) ) * cos( radians( u.longitude ) - radians(".$user_location['lon'].") ) + sin ( radians(".$user_location['lat'].") ) * sin( radians( u.latitude ) ) ) ) AS `distance` ";
             $this->db->select("u.userid,u.name,u.username,u.image,uv.created_on as createdon, count(DISTINCT ul.id) as user_likes,count(DISTINCT uf.id) as user_followers,".$distance);
+
+            $this->db->select('us.location_sharing as location_access');
+            
             $this->db->from('user_view uv');
             $this->db->join('user u', "(u.userid = uv.viewed_by AND u.status!='".DELETED."')", 'inner');
             $this->db->join("user_likes ul","ul.user_id = u.userid AND ul.status = '".ACTIVE."'","left");
             $this->db->join("user_follower uf","uf.user_id = u.userid AND uf.status = '".ACTIVE."'","left");
+            $this->db->join('user_settings us', "(us.userid = u.userid AND us.status = '".ACTIVE."')", 'left');
             $this->db->where('uv.user_id', $user_id);
             $this->db->where('uv.status', "1");
             $this->db->group_by('uv.viewed_by');
             //eleminate blocked users
             $this->db->where('u.userid NOT IN (SELECT user_id FROM blocked_user WHERE  blocked_by = '.$user_id.')', NULL, FALSE);
             $this->db->where('u.userid NOT IN (SELECT blocked_by FROM blocked_user WHERE  user_id = '.$user_id.')', NULL, FALSE);
-//            $this->db->order_by("uv.updated_on","ASC");
+            //$this->db->order_by("uv.updated_on","ASC");
             $query = $this->db->get();
             $finalArr = $query->result_array();
+            foreach ($finalArr as $key => $value) {
+                if($value['location_access'] == LOCATION_ACCESS_OFF ){ // means location sharing is off by user
+                    $finalArr[$key]['distance'] = "";
+                }
+            }
         }
         return $finalArr;
     }
@@ -847,7 +868,7 @@ class Api_model extends CI_Model {
                 die();*/
                 // generate new lat long and update existing
                 $latlonArr = $this->generateRandomLoc($data['latitude'], $data['longitude']);
-                if(is_empty($latlonArr)){
+                if(empty($latlonArr)){
                     unset($peopleData[$key]);
                     continue;
                 }

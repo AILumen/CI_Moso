@@ -135,6 +135,7 @@ class Map extends REST_Controller{
                     ),
                 );
             $userData = $this->Api_model->get_people($user_location,$userConditions,$isvalidAccess['VALUE']['user_id']);
+            // return $userData;
             //FETCH VIRAL EVENT
             $eventData = $this->Algo_model->shuffleEventListing(1,$eventData,$isvalidAccess['VALUE']['user_id']);
             //FILTER OWN AND 3 TOP EVENTS
@@ -146,13 +147,11 @@ class Map extends REST_Controller{
             
             $peopleData = $this->Algo_model->shufflePeopleListing(1,$isvalidAccess['VALUE']['user_id'],$userData);
             // return $peopleData;
-
             $peopleData = $this->Api_model->randomLatLong($peopleData);
-
             // $finalPeopleData = array_slice($peopleData, 0,3,TRUE);
             $finalPeopleData = $peopleData;
-            $mapData['people'] = $this->createGeoJson('people', $defaultJsonArr, $finalPeopleData,$mapData['event']);
             $mapData['event'] = $this->createGeoJson('event', $defaultJsonArr, $eventData);
+            $mapData['people'] = $this->createGeoJson('people', $defaultJsonArr, $finalPeopleData,$mapData['event']);
             //FETCH USER INFO
             $userInfo = $this->Api_model->userInfo($isvalidAccess['VALUE']['user_id']);
             //RETURN RESULT
@@ -163,11 +162,8 @@ class Map extends REST_Controller{
             $errorMsgArr['MESSAGE'] = $this->lang->line('success');
             $errorMsgArr['VALUE']['DATA'] = $mapData;
             $errorMsgArr['VALUE']['USERINFO'] = $userInfo;
-
-
             // print_r($mapData['people']['geojson']['features']);die();
             // print_r(count($mapData['people']['geojson']['features']));die();
-
             /*foreach ($mapData['people']['geojson']['features'] as $key => $value) {
                 return $value;die();
                 return array($value['geometry']['coordinates'][0],$value['geometry']['coordinates'][1]);
@@ -177,8 +173,6 @@ class Map extends REST_Controller{
             }*/
             /*return $mapData;
             die();*/
-
-
             $this->response($errorMsgArr);
         }else{
             //ACCESS TOKEN MISSING ERROR
