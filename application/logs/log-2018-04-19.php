@@ -1,0 +1,25 @@
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+
+ERROR - 2018-04-19 01:58:24 --> Severity: Warning --> A non-numeric value encountered /var/www/html/moso.appinventive.com/application/modules/api/controllers/People.php 215
+ERROR - 2018-04-19 02:00:41 --> Severity: Warning --> A non-numeric value encountered /var/www/html/moso.appinventive.com/application/modules/api/controllers/People.php 215
+ERROR - 2018-04-19 02:03:49 --> Severity: Warning --> A non-numeric value encountered /var/www/html/moso.appinventive.com/application/modules/api/controllers/People.php 215
+ERROR - 2018-04-19 08:36:55 --> Query error: Column 'user_id' cannot be null - Invalid query: INSERT INTO `user_random_location` (`user_id`, `latitude`, `longitude`, `created_on`, `updated_on`) VALUES (NULL, NULL, NULL, 1524127014, 1524127014)
+ERROR - 2018-04-19 08:40:11 --> Query error: Column 'user_id' cannot be null - Invalid query: INSERT INTO `user_random_location` (`user_id`, `latitude`, `longitude`, `created_on`, `updated_on`) VALUES (NULL, NULL, NULL, 1524127211, 1524127211)
+ERROR - 2018-04-19 08:40:14 --> Query error: Column 'user_id' cannot be null - Invalid query: INSERT INTO `user_random_location` (`user_id`, `latitude`, `longitude`, `created_on`, `updated_on`) VALUES (NULL, NULL, NULL, 1524127214, 1524127214)
+ERROR - 2018-04-19 08:40:21 --> Query error: Column 'user_id' cannot be null - Invalid query: INSERT INTO `user_random_location` (`user_id`, `latitude`, `longitude`, `created_on`, `updated_on`) VALUES (NULL, NULL, NULL, 1524127221, 1524127221)
+ERROR - 2018-04-19 08:40:24 --> Query error: Column 'user_id' cannot be null - Invalid query: INSERT INTO `user_random_location` (`user_id`, `latitude`, `longitude`, `created_on`, `updated_on`) VALUES (NULL, NULL, NULL, 1524127224, 1524127224)
+ERROR - 2018-04-19 08:40:26 --> Query error: Column 'user_id' cannot be null - Invalid query: INSERT INTO `user_random_location` (`user_id`, `latitude`, `longitude`, `created_on`, `updated_on`) VALUES (NULL, NULL, NULL, 1524127226, 1524127226)
+ERROR - 2018-04-19 08:40:27 --> Query error: Column 'user_id' cannot be null - Invalid query: INSERT INTO `user_random_location` (`user_id`, `latitude`, `longitude`, `created_on`, `updated_on`) VALUES (NULL, NULL, NULL, 1524127227, 1524127227)
+ERROR - 2018-04-19 08:40:27 --> Query error: Column 'user_id' cannot be null - Invalid query: INSERT INTO `user_random_location` (`user_id`, `latitude`, `longitude`, `created_on`, `updated_on`) VALUES (NULL, NULL, NULL, 1524127227, 1524127227)
+ERROR - 2018-04-19 08:40:34 --> Query error: Column 'user_id' cannot be null - Invalid query: INSERT INTO `user_random_location` (`user_id`, `latitude`, `longitude`, `created_on`, `updated_on`) VALUES (NULL, NULL, NULL, 1524127234, 1524127234)
+ERROR - 2018-04-19 08:40:36 --> Query error: Column 'user_id' cannot be null - Invalid query: INSERT INTO `user_random_location` (`user_id`, `latitude`, `longitude`, `created_on`, `updated_on`) VALUES (NULL, NULL, NULL, 1524127236, 1524127236)
+ERROR - 2018-04-19 08:40:38 --> Query error: Column 'user_id' cannot be null - Invalid query: INSERT INTO `user_random_location` (`user_id`, `latitude`, `longitude`, `created_on`, `updated_on`) VALUES (NULL, NULL, NULL, 1524127238, 1524127238)
+ERROR - 2018-04-19 08:40:38 --> Query error: Column 'user_id' cannot be null - Invalid query: INSERT INTO `user_random_location` (`user_id`, `latitude`, `longitude`, `created_on`, `updated_on`) VALUES (NULL, NULL, NULL, 1524127238, 1524127238)
+ERROR - 2018-04-19 08:40:42 --> Query error: Column 'user_id' cannot be null - Invalid query: INSERT INTO `user_random_location` (`user_id`, `latitude`, `longitude`, `created_on`, `updated_on`) VALUES (NULL, NULL, NULL, 1524127242, 1524127242)
+ERROR - 2018-04-19 08:42:02 --> Query error: Column 'user_id' cannot be null - Invalid query: INSERT INTO `user_random_location` (`user_id`, `latitude`, `longitude`, `created_on`, `updated_on`) VALUES (NULL, NULL, NULL, 1524127322, 1524127322)
+ERROR - 2018-04-19 08:42:03 --> Query error: Column 'user_id' cannot be null - Invalid query: INSERT INTO `user_random_location` (`user_id`, `latitude`, `longitude`, `created_on`, `updated_on`) VALUES (NULL, NULL, NULL, 1524127323, 1524127323)
+ERROR - 2018-04-19 09:03:12 --> Severity: Warning --> A non-numeric value encountered /var/www/html/moso.appinventive.com/application/modules/api/controllers/People.php 215
+ERROR - 2018-04-19 09:04:05 --> Severity: Warning --> A non-numeric value encountered /var/www/html/moso.appinventive.com/application/modules/api/controllers/People.php 215
+ERROR - 2018-04-19 12:39:52 --> 404 Page Not Found: /index
+ERROR - 2018-04-19 14:49:17 --> Query error: Column 'latitude' cannot be null - Invalid query: INSERT INTO `user_random_location` (`user_id`, `latitude`, `longitude`, `created_on`, `updated_on`) VALUES ('43', NULL, NULL, 1524149357, 1524149357)
+ERROR - 2018-04-19 14:51:35 --> Severity: Notice --> Undefined variable: name /var/www/html/moso.appinventive.com/application/modules/api/controllers/Auth.php 1357

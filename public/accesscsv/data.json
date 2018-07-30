@@ -1,0 +1,168 @@
+{
+    "type": "FeatureCollection",
+    "metadata": {
+        "title": "Moso Map Data",
+        "status": 200
+    },
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "27",
+                "evt_name": "nh24 event",
+                "evt_latitude": "28.624134137261",
+                "evt_longitude": "77.399671500871",
+                "evt_start": "1520855452",
+                "evt_category": "1",
+                "event_address": "Pusta Road, Bahrampur, Noida, Uttar Pradesh 203207, India",
+                "evt_createdon": "1520855452",
+                "userid": "23",
+                "image": "https://appinventiv-development.s3.amazonaws.com/moso%2FnCA3HzIs7OsAVLYVJ6Db",
+                "event_likes": "0",
+                "event_followers": "0",
+                "distance": "2.6069925023499723",
+                "view": false,
+                "event_growth": 0,
+                "owner_popularity": 0,
+                "viral": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    77.399671500871,
+                    28.624134137261
+                ]
+            },
+            "id": "27"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "26",
+                "evt_name": "event with exact address",
+                "evt_latitude": "28.611121352303",
+                "evt_longitude": "77.385811577333",
+                "evt_start": "1520839916",
+                "evt_category": "1",
+                "event_address": "Sector 65, Noida, Uttar Pradesh 201301, India",
+                "evt_createdon": "1520839916",
+                "userid": "23",
+                "image": "https://appinventiv-development.s3.amazonaws.com/moso%2FnCA3HzIs7OsAVLYVJ6Db",
+                "event_likes": "0",
+                "event_followers": "0",
+                "distance": "1.489932977056515",
+                "view": false,
+                "event_growth": 0,
+                "owner_popularity": 0,
+                "viral": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    77.385811577333,
+                    28.611121352303
+                ]
+            },
+            "id": "26"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "userid": "13",
+                "name": "",
+                "username": "howdy",
+                "latitude": 28.577006492753625,
+                "longitude": 77.32924537095796,
+                "facebookprof": "",
+                "instaprof": "",
+                "image": "https://appinventiv-development.s3.amazonaws.com/moso%2FchMzFARwXj2z1y3MYASk",
+                "createdon": "1519757532",
+                "user_bio": "",
+                "user_likes": "1",
+                "user_followers": "1",
+                "distance": "0.021139920338468652",
+                "liked": false,
+                "follows": false,
+                "view": false,
+                "live_events": "0",
+                "user_growth": 1.3149888133309905e-9,
+                "user_popularity": 0.00046882325363338024,
+                "viral": 1.1720601065666707e-8
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    77.32924537095796,
+                    28.577006492753625
+                ]
+            },
+            "id": "13"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "userid": "20",
+                "name": null,
+                "username": "otheruser",
+                "latitude": 28.606038365831,
+                "longitude": 77.362243836846,
+                "facebookprof": "",
+                "instaprof": "",
+                "image": "https://scontent.xx.fbcdn.net/v/t1.0-1/c59.0.200.200/p200x200/10354686_10150004552801856_220367501106153455_n.jpg?oh=f621f9474a63f5b27b0514adda5db42b&oe=5B0F8625",
+                "createdon": "1519776475",
+                "user_bio": "",
+                "user_likes": "1",
+                "user_followers": "1",
+                "distance": "0.019360181909683884",
+                "liked": false,
+                "follows": false,
+                "view": false,
+                "live_events": "0",
+                "user_growth": 1.3149888133309905e-9,
+                "user_popularity": 0.0000017414245723714283,
+                "viral": 4.35553391414857e-11
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    77.362243836846,
+                    28.606038365831
+                ]
+            },
+            "id": "20"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "userid": "23",
+                "name": "vijay",
+                "username": "vijaysharma",
+                "latitude": 28.577006492753625,
+                "longitude": 77.32924537095796,
+                "facebookprof": "https://www.gmail.com",
+                "instaprof": "https://www.gmail.com",
+                "image": "https://appinventiv-development.s3.amazonaws.com/moso%2FnCA3HzIs7OsAVLYVJ6Db",
+                "createdon": "1520588433",
+                "user_bio": "Usheiwhwosbwowgwiwgwowwjai9a7292ue8rgdidbdidhndjdjdjdjsksoa9wub3829283yehs8dyv3i38sieh3i39w83hejwuhe",
+                "user_likes": "0",
+                "user_followers": "0",
+                "distance": "0.021139920338468652",
+                "liked": false,
+                "follows": false,
+                "view": false,
+                "live_events": "0",
+                "user_growth": 0,
+                "user_popularity": 0,
+                "viral": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    77.32924537095796,
+                    28.577006492753625
+                ]
+            },
+            "id": "23"
+        }
+    ]
+}

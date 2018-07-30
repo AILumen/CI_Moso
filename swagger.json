@@ -1,0 +1,707 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "MOSO",
+        "description": "MOSO",
+        "version": "1"
+    },
+    "host": "moso.appinventive.com",
+    "basePath": "/api",
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/creds": {
+            "post": {
+                "tags": [
+                    "Change/Forgot Password"
+                ],
+                "summary": "change/reset password of valid user",
+                "operationId": "index_post",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Basic Auth",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "method",
+                        "in": "formData",
+                        "description": "change/forgot/reset",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "old_pass",
+                        "in": "formData",
+                        "description": "Old Password, required if method is change",
+                        "type": "string"
+                    },
+                    {
+                        "name": "new_password",
+                        "in": "formData",
+                        "description": "New Password, required if method is change",
+                        "type": "string"
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "formData",
+                        "description": "user-id of associated user, required if method is change or reset",
+                        "type": "string"
+                    },
+                    {
+                        "name": "access_token",
+                        "in": "formData",
+                        "description": "access token of associated user, required if method is change",
+                        "type": "string"
+                    },
+                    {
+                        "name": "reset_value",
+                        "in": "formData",
+                        "description": "Email to reset your password or phone number if is_phone = TRUE, required if method is forgot",
+                        "type": "string"
+                    },
+                    {
+                        "name": "is_phone",
+                        "in": "formData",
+                        "description": "TRUE, if using phone number to reset, required if method is forgot",
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "in": "formData",
+                        "description": "password to reset password, required if method is reset",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESS"
+                    },
+                    "204": {
+                        "description": "Number not Found"
+                    },
+                    "301": {
+                        "description": "Blocked By Admin"
+                    },
+                    "302": {
+                        "description": "Deleted By Admin"
+                    },
+                    "100": {
+                        "description": "Parameter Missing"
+                    },
+                    "400": {
+                        "description": "Failure"
+                    },
+                    "206": {
+                        "description": "Old Password mismatch"
+                    }
+                }
+            }
+        },
+        "/facebook": {
+            "post": {
+                "tags": [
+                    "Facebook API"
+                ],
+                "summary": "Facebook API",
+                "operationId": "index_post",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Basic Auth",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "social_id",
+                        "in": "formData",
+                        "description": "Facebook unique social id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "device_type",
+                        "in": "formData",
+                        "description": "type of device, 1 for Android or 2 fro iOS",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "phone_no",
+                        "in": "formData",
+                        "description": "User phone number",
+                        "type": "string"
+                    },
+                    {
+                        "name": "country_code",
+                        "in": "formData",
+                        "description": "Country code, required with phone_no",
+                        "type": "string"
+                    },
+                    {
+                        "name": "username",
+                        "in": "formData",
+                        "description": "Unique username of choice",
+                        "type": "string"
+                    },
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "User full name",
+                        "type": "string"
+                    },
+                    {
+                        "name": "email",
+                        "in": "formData",
+                        "description": "User email address",
+                        "type": "string"
+                    },
+                    {
+                        "name": "device_token",
+                        "in": "formData",
+                        "description": "Unique token of the device",
+                        "type": "string"
+                    },
+                    {
+                        "name": "image_source",
+                        "in": "formData",
+                        "description": "User image URL",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Login Success"
+                    },
+                    "301": {
+                        "description": "Blocked By Admin"
+                    },
+                    "302": {
+                        "description": "Deleted By Admin"
+                    },
+                    "304": {
+                        "description": "Invalid Access Token"
+                    },
+                    "100": {
+                        "description": "Parameter Missing"
+                    }
+                }
+            }
+        },
+        "/instagram": {
+            "post": {
+                "tags": [
+                    "Instagram API"
+                ],
+                "summary": "Instagram API",
+                "operationId": "index_post",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Basic Auth",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "device_type",
+                        "in": "formData",
+                        "description": "Device type(1 for android and 2 for IOS)",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "code",
+                        "in": "formData",
+                        "description": "Instagram Code",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESS"
+                    },
+                    "301": {
+                        "description": "Blocked By Admin"
+                    },
+                    "302": {
+                        "description": "Deleted By Admin"
+                    },
+                    "304": {
+                        "description": "Invalid Access Token"
+                    },
+                    "100": {
+                        "description": "Parameter Missing"
+                    },
+                    "400": {
+                        "description": "Failure"
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "User Login/Check User"
+                ],
+                "summary": "User login with valid credentials",
+                "operationId": "index_post",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Basic Auth",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "device_type",
+                        "in": "formData",
+                        "description": "type of device, 1 for Android or 2 fro iOS",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "method",
+                        "in": "formData",
+                        "description": "check_user, required only to check user availability ",
+                        "type": "string"
+                    },
+                    {
+                        "name": "type",
+                        "in": "formData",
+                        "description": "1 for MOSO, 2 for Facebook, 3 for Instagram, required to login",
+                        "type": "string"
+                    },
+                    {
+                        "name": "phone_no",
+                        "in": "formData",
+                        "description": "User phone number, required to login if is_phone = TRUE",
+                        "type": "string"
+                    },
+                    {
+                        "name": "is_phone",
+                        "in": "formData",
+                        "description": "TRUE if user wishes to login using mobile",
+                        "type": "string"
+                    },
+                    {
+                        "name": "country_code",
+                        "in": "formData",
+                        "description": "Country Code, required to login if is_phone = TRUE",
+                        "type": "string"
+                    },
+                    {
+                        "name": "is_username",
+                        "in": "formData",
+                        "description": "TRUE if user wishes to login using username",
+                        "type": "string"
+                    },
+                    {
+                        "name": "username",
+                        "in": "formData",
+                        "description": "username, required if is_username = TRUE",
+                        "type": "string"
+                    },
+                    {
+                        "name": "device_token",
+                        "in": "formData",
+                        "description": "unique token of the device used to login",
+                        "type": "string"
+                    },
+                    {
+                        "name": "email",
+                        "in": "formData",
+                        "description": "Valid user email, required to login if user wishes to login via email",
+                        "type": "string"
+                    },
+                    {
+                        "name": "pass",
+                        "in": "formData",
+                        "description": "password, required to login",
+                        "type": "string"
+                    },
+                    {
+                        "name": "check_value",
+                        "in": "formData",
+                        "description": "relevant user name to check availability, required if method = check_user",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Login Success"
+                    },
+                    "100": {
+                        "description": "Required Parameters are Missing"
+                    },
+                    "307": {
+                        "description": "This user is marked inactive"
+                    },
+                    "302": {
+                        "description": "This user is deleted by Administrator"
+                    },
+                    "304": {
+                        "description": "Invalid Access/Enter valid email address or password."
+                    },
+                    "204": {
+                        "description": "This number is not registered with us/This email is not registered"
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "post": {
+                "tags": [
+                    "Logout API"
+                ],
+                "summary": "Logout API",
+                "operationId": "index_post",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Basic Auth",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "method",
+                        "in": "formData",
+                        "description": "logout",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "access_token",
+                        "in": "formData",
+                        "description": "Access token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "formData",
+                        "description": "user-id of associated user",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESS"
+                    },
+                    "301": {
+                        "description": "Blocked By Admin"
+                    },
+                    "302": {
+                        "description": "Deleted By Admin"
+                    },
+                    "304": {
+                        "description": "Invalid Access Token"
+                    },
+                    "100": {
+                        "description": "Parameter Missing"
+                    },
+                    "400": {
+                        "description": "Failure"
+                    }
+                }
+            }
+        },
+        "/otp": {
+            "get": {
+                "tags": [
+                    "Verify OTP"
+                ],
+                "summary": "Check whether the entered OTP is correct or not",
+                "operationId": "index_get",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Basic Auth",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "method",
+                        "in": "query",
+                        "description": "verify_otp",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "phone_no",
+                        "in": "query",
+                        "description": "Phone number",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "otp",
+                        "in": "query",
+                        "description": "OTP",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESS"
+                    },
+                    "204": {
+                        "description": "Number not Found"
+                    },
+                    "201": {
+                        "description": "Incorrect OTP"
+                    },
+                    "301": {
+                        "description": "Blocked By Admin"
+                    },
+                    "302": {
+                        "description": "Deleted By Admin"
+                    },
+                    "100": {
+                        "description": "Parameter Missing"
+                    },
+                    "400": {
+                        "description": "Failure"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Resend OTP"
+                ],
+                "summary": "Resend OTP to valid user",
+                "operationId": "index_post",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Basic Auth",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "method",
+                        "in": "formData",
+                        "description": "resend_otp",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "email",
+                        "in": "formData",
+                        "description": "registered email, required if resend using email",
+                        "type": "string"
+                    },
+                    {
+                        "name": "is_phone",
+                        "in": "formData",
+                        "description": "TRUE, required if resend to phone",
+                        "type": "string"
+                    },
+                    {
+                        "name": "country_code",
+                        "in": "formData",
+                        "description": "required if is_phone = TRUE",
+                        "type": "string"
+                    },
+                    {
+                        "name": "phone_no",
+                        "in": "formData",
+                        "description": "Phone number, required if is_phone = TRUE",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESS"
+                    },
+                    "204": {
+                        "description": "Number not Found"
+                    },
+                    "301": {
+                        "description": "Blocked By Admin"
+                    },
+                    "302": {
+                        "description": "Deleted By Admin"
+                    },
+                    "100": {
+                        "description": "Parameter Missing"
+                    },
+                    "400": {
+                        "description": "Failure"
+                    }
+                }
+            }
+        },
+        "/signup": {
+            "post": {
+                "tags": [
+                    "SignUp"
+                ],
+                "summary": "Singn Up",
+                "operationId": "index_post",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Basic Auth",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "username",
+                        "in": "formData",
+                        "description": "Unique username of choice",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "pass",
+                        "in": "formData",
+                        "description": "Password of choice",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "device_type",
+                        "in": "formData",
+                        "description": "type of device, 1 for Android or 2 fro iOSr",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "phone_no",
+                        "in": "formData",
+                        "description": "user contact number if user wishes to signup from phone",
+                        "type": "string"
+                    },
+                    {
+                        "name": "email",
+                        "in": "formData",
+                        "description": "user email address if user wishes to signup from email",
+                        "type": "string"
+                    },
+                    {
+                        "name": "country_code",
+                        "in": "formData",
+                        "description": "relevant country code, required if is_phone = true",
+                        "type": "string"
+                    },
+                    {
+                        "name": "social_id",
+                        "in": "formData",
+                        "description": "facebook/instagram unique ID, required if email id is not received while social signup",
+                        "type": "string"
+                    },
+                    {
+                        "name": "type",
+                        "in": "formData",
+                        "description": "Social Type-- 2 --facebook, 3-- instagram, Required if social id exists",
+                        "type": "string"
+                    },
+                    {
+                        "name": "is_phone",
+                        "in": "formData",
+                        "description": "TRUE, if user wishes to signup from mobile number",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESS"
+                    },
+                    "205": {
+                        "description": "This email already exists/This number is already exist"
+                    },
+                    "304": {
+                        "description": "Invalid Access"
+                    },
+                    "100": {
+                        "description": "Parameter Missing"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {},
+    "securityDefinitions": {
+        "basicAuth": {
+            "type": "basic",
+            "name": "Authorization",
+            "in": "header"
+        }
+    },
+    "security": [
+        {
+            "basicAuth": [
+                ""
+            ]
+        },
+        {
+            "api_key": [
+                ""
+            ]
+        }
+    ],
+    "tags": [
+        {
+            "name": "User",
+            "description": ""
+        }
+    ]
+}

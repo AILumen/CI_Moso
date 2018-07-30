@@ -1,0 +1,64 @@
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+
+ERROR - 2018-04-02 04:30:21 --> {"type":2,"method":"social","email":"josh.okonjo@yahoo.com","is_phone":false,"phone_no":"","pass":"","image_source":"https:\/\/lookaside.facebook.com\/platform\/profilepic\/?asid=442137099534017&height=200&width=200&ext=1522902620&hash=AeQVs85xdcAmHFc9","is_login":true,"fb_url":"https:\/\/www.facebook.com\/app_scoped_user_id\/442137099534017\/","device_type":1,"social_id":"442137099534017"}
+ERROR - 2018-04-02 04:30:21 --> {"type":2,"method":"social","email":"josh.okonjo@yahoo.com","is_phone":false,"phone_no":"","pass":"","image_source":"https:\/\/lookaside.facebook.com\/platform\/profilepic\/?asid=442137099534017&height=200&width=200&ext=1522902620&hash=AeQVs85xdcAmHFc9","is_login":true,"fb_url":"https:\/\/www.facebook.com\/app_scoped_user_id\/442137099534017\/","device_type":1,"social_id":"442137099534017"}
+ERROR - 2018-04-02 04:30:27 --> Severity: Notice --> Undefined variable: name /var/www/html/moso.appinventive.com/application/modules/api/controllers/Auth.php 1357
+ERROR - 2018-04-02 04:30:34 --> kahli hai
+ERROR - 2018-04-02 04:31:37 --> kahli hai
+ERROR - 2018-04-02 04:31:56 --> {"type":2,"method":"social","email":"josh.okonjo@yahoo.com","is_phone":false,"phone_no":"","pass":"","image_source":"https:\/\/lookaside.facebook.com\/platform\/profilepic\/?asid=442137099534017&height=200&width=200&ext=1522902716&hash=AeSMCbFobewibt2W","is_login":true,"fb_url":"https:\/\/www.facebook.com\/app_scoped_user_id\/442137099534017\/","device_type":1,"social_id":"442137099534017"}
+ERROR - 2018-04-02 04:31:56 --> {"type":2,"method":"social","email":"josh.okonjo@yahoo.com","is_phone":false,"phone_no":"","pass":"","image_source":"https:\/\/lookaside.facebook.com\/platform\/profilepic\/?asid=442137099534017&height=200&width=200&ext=1522902716&hash=AeSMCbFobewibt2W","is_login":true,"fb_url":"https:\/\/www.facebook.com\/app_scoped_user_id\/442137099534017\/","device_type":1,"social_id":"442137099534017"}
+ERROR - 2018-04-02 04:32:00 --> Severity: Notice --> Undefined variable: name /var/www/html/moso.appinventive.com/application/modules/api/controllers/Auth.php 1357
+ERROR - 2018-04-02 04:32:51 --> kahli hai
+ERROR - 2018-04-02 04:32:58 --> kahli hai
+ERROR - 2018-04-02 04:33:30 --> kahli hai
+ERROR - 2018-04-02 04:33:41 --> kahli hai
+ERROR - 2018-04-02 04:34:16 --> kahli hai
+ERROR - 2018-04-02 04:34:46 --> kahli hai
+ERROR - 2018-04-02 04:38:06 --> hello{"bio":"ggggggssuhbhhjjhbvvddfghvvvvcccfggvvvvcccccfyghbghhbgryhvvftyhbvdrgcffffffggffgg","method":"profile","access_token":"EUB3h476c32DqGQermsVcMnIRl3g10","device_type":2,"userid":"24"}
+ERROR - 2018-04-02 04:41:20 --> {"type":2,"method":"social","email":"josh.okonjo@yahoo.com","is_phone":false,"phone_no":"","pass":"","image_source":"https:\/\/lookaside.facebook.com\/platform\/profilepic\/?asid=442137099534017&height=200&width=200&ext=1522903280&hash=AeTLqZ2bIGP5jpdJ","is_login":true,"fb_url":"https:\/\/www.facebook.com\/app_scoped_user_id\/442137099534017\/","device_type":2,"social_id":"442137099534017"}
+ERROR - 2018-04-02 04:41:20 --> {"type":2,"method":"social","email":"josh.okonjo@yahoo.com","is_phone":false,"phone_no":"","pass":"","image_source":"https:\/\/lookaside.facebook.com\/platform\/profilepic\/?asid=442137099534017&height=200&width=200&ext=1522903280&hash=AeTLqZ2bIGP5jpdJ","is_login":true,"fb_url":"https:\/\/www.facebook.com\/app_scoped_user_id\/442137099534017\/","device_type":2,"social_id":"442137099534017"}
+ERROR - 2018-04-02 04:41:25 --> Severity: Notice --> Undefined variable: name /var/www/html/moso.appinventive.com/application/modules/api/controllers/Auth.php 1357
+ERROR - 2018-04-02 04:41:30 --> kahli hai
+ERROR - 2018-04-02 04:41:30 --> kahli hai
+ERROR - 2018-04-02 04:41:32 --> kahli hai
+ERROR - 2018-04-02 04:42:38 --> {"type":2,"method":"social","email":"josh.okonjo@yahoo.com","is_phone":false,"phone_no":"","pass":"","image_source":"https:\/\/lookaside.facebook.com\/platform\/profilepic\/?asid=442137099534017&height=200&width=200&ext=1522903358&hash=AeTgLf1t78SkLM7r","is_login":true,"fb_url":"https:\/\/www.facebook.com\/app_scoped_user_id\/442137099534017\/","device_type":2,"social_id":"442137099534017"}
+ERROR - 2018-04-02 04:42:38 --> {"type":2,"method":"social","email":"josh.okonjo@yahoo.com","is_phone":false,"phone_no":"","pass":"","image_source":"https:\/\/lookaside.facebook.com\/platform\/profilepic\/?asid=442137099534017&height=200&width=200&ext=1522903358&hash=AeTgLf1t78SkLM7r","is_login":true,"fb_url":"https:\/\/www.facebook.com\/app_scoped_user_id\/442137099534017\/","device_type":2,"social_id":"442137099534017"}
+ERROR - 2018-04-02 06:57:29 --> kahli hai
+ERROR - 2018-04-02 06:57:40 --> kahli hai
+ERROR - 2018-04-02 07:22:02 --> Severity: Warning --> A non-numeric value encountered /var/www/html/moso.appinventive.com/application/modules/api/controllers/People.php 180
+ERROR - 2018-04-02 08:53:28 --> {"type":2,"method":"social","email":"vijju.995@gmail.com","is_phone":false,"phone_no":"","pass":"","image_source":"https:\/\/lookaside.facebook.com\/platform\/profilepic\/?asid=939689942851672&height=200&width=200&ext=1522918406&hash=AeSjeMuSLLBeL43k","is_login":true,"fb_url":"https:\/\/www.facebook.com\/app_scoped_user_id\/939689942851672\/","device_type":1,"social_id":"939689942851672"}
+ERROR - 2018-04-02 08:53:28 --> {"type":2,"method":"social","email":"vijju.995@gmail.com","is_phone":false,"phone_no":"","pass":"","image_source":"https:\/\/lookaside.facebook.com\/platform\/profilepic\/?asid=939689942851672&height=200&width=200&ext=1522918406&hash=AeSjeMuSLLBeL43k","is_login":true,"fb_url":"https:\/\/www.facebook.com\/app_scoped_user_id\/939689942851672\/","device_type":1,"social_id":"939689942851672"}
+ERROR - 2018-04-02 09:53:56 --> {"type":2,"method":"social","email":"vijju.995@gmail.com","is_phone":false,"phone_no":"","pass":"","image_source":"https:\/\/lookaside.facebook.com\/platform\/profilepic\/?asid=939689942851672&height=200&width=200&ext=1522922034&hash=AeSMAhL3tU2yE0jd","is_login":true,"fb_url":"https:\/\/www.facebook.com\/app_scoped_user_id\/939689942851672\/","device_type":1,"social_id":"939689942851672"}
+ERROR - 2018-04-02 09:53:56 --> {"type":2,"method":"social","email":"vijju.995@gmail.com","is_phone":false,"phone_no":"","pass":"","image_source":"https:\/\/lookaside.facebook.com\/platform\/profilepic\/?asid=939689942851672&height=200&width=200&ext=1522922034&hash=AeSMAhL3tU2yE0jd","is_login":true,"fb_url":"https:\/\/www.facebook.com\/app_scoped_user_id\/939689942851672\/","device_type":1,"social_id":"939689942851672"}
+ERROR - 2018-04-02 10:04:04 --> 404 Page Not Found: /index
+ERROR - 2018-04-02 10:06:17 --> {"type":2,"method":"social","email":"vijju.995@gmail.com","is_phone":false,"phone_no":"","pass":"","image_source":"https:\/\/lookaside.facebook.com\/platform\/profilepic\/?asid=939689942851672&height=200&width=200&ext=1522922776&hash=AeSaI6PS5PhB7F8a","is_login":true,"fb_url":"https:\/\/www.facebook.com\/app_scoped_user_id\/939689942851672\/","device_type":1,"social_id":"939689942851672"}
+ERROR - 2018-04-02 10:06:17 --> {"type":2,"method":"social","email":"vijju.995@gmail.com","is_phone":false,"phone_no":"","pass":"","image_source":"https:\/\/lookaside.facebook.com\/platform\/profilepic\/?asid=939689942851672&height=200&width=200&ext=1522922776&hash=AeSaI6PS5PhB7F8a","is_login":true,"fb_url":"https:\/\/www.facebook.com\/app_scoped_user_id\/939689942851672\/","device_type":1,"social_id":"939689942851672"}
+ERROR - 2018-04-02 13:08:55 --> {"type":2,"method":"social","email":"panchal53rahul@gmail.com","is_phone":false,"phone_no":"","pass":"","image_source":"https:\/\/lookaside.facebook.com\/platform\/profilepic\/?asid=613597625648752&height=200&width=200&ext=1522933735&hash=AeQzS7UlMWKYY2AF","is_login":true,"fb_url":"https:\/\/www.facebook.com\/app_scoped_user_id\/613597625648752\/","device_type":1,"social_id":"613597625648752"}
+ERROR - 2018-04-02 13:08:55 --> {"type":2,"method":"social","email":"panchal53rahul@gmail.com","is_phone":false,"phone_no":"","pass":"","image_source":"https:\/\/lookaside.facebook.com\/platform\/profilepic\/?asid=613597625648752&height=200&width=200&ext=1522933735&hash=AeQzS7UlMWKYY2AF","is_login":true,"fb_url":"https:\/\/www.facebook.com\/app_scoped_user_id\/613597625648752\/","device_type":1,"social_id":"613597625648752"}
+ERROR - 2018-04-02 13:10:36 --> unfollowReq:{"method":"unfollow","user_id":"3","access_token":"fpLyaEa59HU5CCdvVWlykYj2xwzDfI","device_type":1}
+ERROR - 2018-04-02 13:10:37 --> unfollowReq:{"method":"unfollow","user_id":"3","access_token":"fpLyaEa59HU5CCdvVWlykYj2xwzDfI","device_type":1}
+ERROR - 2018-04-02 13:10:39 --> unfollowReq:{"method":"unfollow","user_id":"20","access_token":"fpLyaEa59HU5CCdvVWlykYj2xwzDfI","device_type":1}
+ERROR - 2018-04-02 13:10:40 --> unfollowReq:{"method":"unfollow","user_id":"22","access_token":"fpLyaEa59HU5CCdvVWlykYj2xwzDfI","device_type":1}
+ERROR - 2018-04-02 13:10:44 --> unfollowReq:{"method":"unfollow","user_id":"4","access_token":"fpLyaEa59HU5CCdvVWlykYj2xwzDfI","device_type":1}
+ERROR - 2018-04-02 13:10:50 --> unfollowReq:{"method":"unfollow","user_id":"3","access_token":"fpLyaEa59HU5CCdvVWlykYj2xwzDfI","device_type":1}
+ERROR - 2018-04-02 13:10:53 --> unfollowReq:{"method":"unfollow","user_id":"4","access_token":"fpLyaEa59HU5CCdvVWlykYj2xwzDfI","device_type":1}
+ERROR - 2018-04-02 13:11:40 --> unfollowReq:{"method":"unfollow","user_id":"3","access_token":"fpLyaEa59HU5CCdvVWlykYj2xwzDfI","device_type":1}
+ERROR - 2018-04-02 13:11:41 --> unfollowReq:{"method":"unfollow","user_id":"4","access_token":"fpLyaEa59HU5CCdvVWlykYj2xwzDfI","device_type":1}
+ERROR - 2018-04-02 13:12:24 --> unfollowReq:{"method":"unfollow","user_id":"20","access_token":"fpLyaEa59HU5CCdvVWlykYj2xwzDfI","device_type":1}
+ERROR - 2018-04-02 13:12:24 --> unfollowReq:{"method":"unfollow","user_id":"22","access_token":"fpLyaEa59HU5CCdvVWlykYj2xwzDfI","device_type":1}
+ERROR - 2018-04-02 13:12:24 --> unfollowReq:{"method":"unfollow","user_id":"4","access_token":"fpLyaEa59HU5CCdvVWlykYj2xwzDfI","device_type":1}
+ERROR - 2018-04-02 13:12:25 --> unfollowReq:{"method":"unfollow","user_id":"3","access_token":"fpLyaEa59HU5CCdvVWlykYj2xwzDfI","device_type":1}
+ERROR - 2018-04-02 13:12:25 --> unfollowReq:{"method":"unfollow","user_id":"4","access_token":"fpLyaEa59HU5CCdvVWlykYj2xwzDfI","device_type":1}
+ERROR - 2018-04-02 13:12:26 --> unfollowReq:{"method":"unfollow","user_id":"22","access_token":"fpLyaEa59HU5CCdvVWlykYj2xwzDfI","device_type":1}
+ERROR - 2018-04-02 13:12:28 --> unfollowReq:{"method":"unfollow","user_id":"20","access_token":"fpLyaEa59HU5CCdvVWlykYj2xwzDfI","device_type":1}
+ERROR - 2018-04-02 13:12:28 --> unfollowReq:{"method":"unfollow","user_id":"4","access_token":"fpLyaEa59HU5CCdvVWlykYj2xwzDfI","device_type":1}
+ERROR - 2018-04-02 13:12:29 --> unfollowReq:{"method":"unfollow","user_id":"3","access_token":"fpLyaEa59HU5CCdvVWlykYj2xwzDfI","device_type":1}
+ERROR - 2018-04-02 13:12:31 --> unfollowReq:{"method":"unfollow","user_id":"22","access_token":"fpLyaEa59HU5CCdvVWlykYj2xwzDfI","device_type":1}
+ERROR - 2018-04-02 13:14:11 --> {"type":2,"method":"social","email":"panchal53rahul@gmail.com","is_phone":false,"phone_no":"","pass":"","image_source":"https:\/\/lookaside.facebook.com\/platform\/profilepic\/?asid=613597625648752&height=200&width=200&ext=1522934050&hash=AeR8QDE4kEpoi9PF","is_login":true,"fb_url":"https:\/\/www.facebook.com\/app_scoped_user_id\/613597625648752\/","device_type":2,"social_id":"613597625648752"}
+ERROR - 2018-04-02 13:14:11 --> {"type":2,"method":"social","email":"panchal53rahul@gmail.com","is_phone":false,"phone_no":"","pass":"","image_source":"https:\/\/lookaside.facebook.com\/platform\/profilepic\/?asid=613597625648752&height=200&width=200&ext=1522934050&hash=AeR8QDE4kEpoi9PF","is_login":true,"fb_url":"https:\/\/www.facebook.com\/app_scoped_user_id\/613597625648752\/","device_type":2,"social_id":"613597625648752"}
+ERROR - 2018-04-02 13:16:22 --> unfollowReq:{"method":"unfollow","user_id":"4","access_token":"tN746tXAvKxeeawxkSFM4eBVqQgRGJ","device_type":2}
+ERROR - 2018-04-02 13:16:23 --> unfollowReq:{"method":"unfollow","user_id":"3","access_token":"tN746tXAvKxeeawxkSFM4eBVqQgRGJ","device_type":2}
+ERROR - 2018-04-02 13:16:23 --> unfollowReq:{"method":"unfollow","user_id":"20","access_token":"tN746tXAvKxeeawxkSFM4eBVqQgRGJ","device_type":2}
+ERROR - 2018-04-02 13:16:24 --> unfollowReq:{"method":"unfollow","user_id":"22","access_token":"tN746tXAvKxeeawxkSFM4eBVqQgRGJ","device_type":2}
+ERROR - 2018-04-02 13:37:30 --> unfollowReq:{"method":"unfollow","user_id":"20","access_token":"tN746tXAvKxeeawxkSFM4eBVqQgRGJ","device_type":2}
+ERROR - 2018-04-02 13:37:34 --> unfollowReq:{"method":"unfollow","user_id":"20","access_token":"tN746tXAvKxeeawxkSFM4eBVqQgRGJ","device_type":2}

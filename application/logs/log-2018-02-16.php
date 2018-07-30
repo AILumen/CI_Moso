@@ -1,0 +1,22 @@
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+
+ERROR - 2018-02-16 18:49:36 --> {"method":"listing","radius":3.4947172156619017,"user_location":{"lat":28.747774124145508,"lon":77.47325134277344},"access_token":"sPScr4d0XNfYzBvgtmU7rOIZ0N4bPc","device_type":1}
+ERROR - 2018-02-16 18:50:37 --> {"method":"listing","radius":3.4947172156619017,"user_location":{"lat":28.747774124145508,"lon":77.47325134277344},"access_token":"sPScr4d0XNfYzBvgtmU7rOIZ0N4bPc","device_type":1}
+ERROR - 2018-02-16 18:51:58 --> {"method":"listing","radius":7.300186451211933,"user_location":{"lat":37.33233141,"lon":-122.0312186},"access_token":"O3f21ucZmlGgnsxVl2XNX5eQVN8rel","device_type":2}
+ERROR - 2018-02-16 18:51:58 --> [{"id":"10","evt_name":"New Event With New User","evt_latitude":"37.388377707135","evt_longitude":"-122.07338066629","evt_start":"1518804467","evt_category":"1","distance":"4.512147863503997"}]
+ERROR - 2018-02-16 18:54:26 --> {"method":"listing","radius":3.6507147296457427,"user_location":{"lat":37.33233141,"lon":-122.0312186},"access_token":"O3f21ucZmlGgnsxVl2XNX5eQVN8rel","device_type":2}
+ERROR - 2018-02-16 18:54:46 --> {"method":"listing","radius":7.300186451211933,"user_location":{"lat":37.33233141,"lon":-122.0312186},"access_token":"O3f21ucZmlGgnsxVl2XNX5eQVN8rel","device_type":2}
+ERROR - 2018-02-16 18:54:46 --> [{"id":"10","evt_name":"New Event With New User","evt_latitude":"37.388377707135","evt_longitude":"-122.07338066629","evt_start":"1518804467","evt_category":"1","distance":"4.512147863503997"}]
+ERROR - 2018-02-16 18:55:32 --> {"method":"listing","radius":7.300186451211933,"user_location":{"lat":37.33233141,"lon":-122.0312186},"access_token":"O3f21ucZmlGgnsxVl2XNX5eQVN8rel","device_type":2}
+ERROR - 2018-02-16 18:55:32 --> [{"id":"10","evt_name":"New Event With New User","evt_latitude":"37.388377707135","evt_longitude":"-122.07338066629","evt_start":"1518804467","evt_category":"1","distance":"4.512147863503997"}]
+ERROR - 2018-02-16 18:55:59 --> {"method":"listing","radius":7.300186451211933,"user_location":{"lat":37.33233141,"lon":-122.0312186},"access_token":"O3f21ucZmlGgnsxVl2XNX5eQVN8rel","device_type":2}
+ERROR - 2018-02-16 18:55:59 --> [{"id":"10","evt_name":"New Event With New User","evt_latitude":"37.388377707135","evt_longitude":"-122.07338066629","evt_start":"1518804467","evt_category":"1","distance":"4.512147863503997"}]
+ERROR - 2018-02-16 18:56:37 --> {"method":"listing","radius":3.4947172156619017,"user_location":{"lat":28.747774124145508,"lon":77.47325134277344},"access_token":"sPScr4d0XNfYzBvgtmU7rOIZ0N4bPc","device_type":1}
+ERROR - 2018-02-16 18:57:15 --> {"method":"listing","radius":7.300186451211933,"user_location":{"lat":37.33233141,"lon":-122.0312186},"access_token":"O3f21ucZmlGgnsxVl2XNX5eQVN8rel","device_type":2}
+ERROR - 2018-02-16 18:57:15 --> [{"id":"10","evt_name":"New Event With New User","evt_latitude":"37.388377707135","evt_longitude":"-122.07338066629","evt_start":"1518804467","evt_category":"1","distance":"4.512147863503997"}]
+ERROR - 2018-02-16 18:58:05 --> {"method":"listing","radius":3.4891236793039155,"user_location":{"lat":28.8340572,"lon":77.5686729},"access_token":"GcG8OpVrGZJvZG565lrjspLVZvvxS8","device_type":1}
+ERROR - 2018-02-16 18:58:05 --> [{"id":"11","evt_name":"Modinagar Event","evt_latitude":"28.833616523085","evt_longitude":"77.580744480128","evt_start":"1518806850","evt_category":"1","distance":"0.731339061545401"}]
+ERROR - 2018-02-16 19:12:18 --> {"method":"listing","radius":3.4916096954630205,"user_location":{"lat":28.8340572,"lon":77.5686729},"access_token":"npBv08K0VxyKKu1Bra4D8c34G7LE1F","device_type":1}
+ERROR - 2018-02-16 19:12:18 --> [{"id":"11","evt_name":"Modinagar Event","evt_latitude":"28.833616523085","evt_longitude":"77.580744480128","evt_start":"1518806850","evt_category":"1","distance":"0.731339061545401"}]
+ERROR - 2018-02-16 19:15:02 --> {"method":"listing","radius":3.4916096954630205,"user_location":{"lat":28.8340572,"lon":77.5686729},"access_token":"npBv08K0VxyKKu1Bra4D8c34G7LE1F","device_type":1}
+ERROR - 2018-02-16 19:15:02 --> [{"id":"11","evt_name":"Modinagar Event","evt_latitude":"28.833616523085","evt_longitude":"77.580744480128","evt_start":"1518806850","evt_category":"1","distance":"0.731339061545401"},{"id":"12","evt_name":"Modinagar Event","evt_latitude":"28.851020966566","evt_longitude":"77.603018294061","evt_start":"1518808499","evt_category":"2","distance":"2.386483820962741"}]
