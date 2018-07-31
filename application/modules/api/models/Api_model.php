@@ -480,11 +480,14 @@ class Api_model extends CI_Model {
      * Date: 21/02/2018
      */
     public function get_people($user_location, $conditions,$user_id = 0) {
+        // $this->print($user_id);
         $appSettings = get_settings(array("new_user_time"));
         //To calculate distance between two points
         $distance = "( 3959 * acos ( cos ( radians(".$user_location['lat'].") ) * cos( radians( u.latitude ) ) * cos( radians( u.longitude ) - radians(".$user_location['lon'].") ) + sin ( radians(".$user_location['lat'].") ) * sin( radians( u.latitude ) ) ) ) AS `distance` ";
+
+
         try {
-            $this->db->select("u.userid,u.name,u.username,u.latitude,u.longitude,u.image,u.thumbnail,u.createdon,userbio as user_bio,count( DISTINCT ul.id) as user_likes,count( DISTINCT uf.id) as user_followers,".$distance);
+            $this->db->select("u.total_like_count as total_like_count,u.userid,u.name,u.username,u.latitude,u.longitude,u.image,u.thumbnail,u.createdon,userbio as user_bio,count( DISTINCT ul.id) as user_likes,count( DISTINCT uf.id) as user_followers,".$distance);
             //Check if social accounts are active in setting, If onn then return actual values else return blank values
             $this->db->select('IF(us.social_accounts = "1",u.facebookprof,"") as facebookprof, IF(us.social_accounts ="1",u.instaprof,"") as instaprof',FALSE);
             $this->db->select('us.location_sharing as location_access');
@@ -508,10 +511,49 @@ class Api_model extends CI_Model {
             }
             $query = $this->db->get();
             $userInfo = $query->result_array();
+            
+            // $this->print($userInfo);
+
             foreach ($userInfo as $key => $value) {
+                // $this->print($value);
+                $media_like_count = 0;
+                /*$data = $this->db->where('userid',$value['userid'])
+                    ->where('ml.status',ACTIVE)
+                    ->from('event as ev')
+                    ->join('event_media as em','ev.id = em.evt_id')
+                    ->join('media_like as ml','em.id = ml.media_id')
+                    ->select('ev.id as event_id,ev.evt_name as event_name,ev.userid as event_userid ,em.id as media_id , count(ml.id) as total_like_on_media');
+                $data = $data->group_by('ml.media_id');
+                $data = $data->get();*/
+                $event_likes = $this->db->from('event_media as em')
+                    ->where('uploaded_by', $value['userid'])
+                    ->where('ml.status',ACTIVE)
+                    ->join('media_like as ml','em.id = ml.media_id')
+                    ->group_by('ml.media_id')
+                    ->select('em.id as media_id , count(ml.id) as total_like_on_media')
+                    ->get();
+                $message_likes = $this->db->from('message_likes')
+                    ->where('message_user_id',$value['userid'])
+                    ->get();
+                // $this->print($userInfo[$key]['user_likes']);
+                // $this->print($message_likes->num_rows());
+                // $this->print($event_likes->result_array());
+                foreach ($event_likes->result_array() as $key1 => $event_likes_value) {
+                    // $this->print($event_likes_value['total_like_on_media']);
+                    // $media_like_count+= $event_likes_value['total_like_on_media'];
+                    // here we are adding total like on media into user_likes
+                    $userInfo[$key]['user_likes']+= $event_likes_value['total_like_on_media']; 
+                }
+
+                $userInfo[$key]['user_likes']+= $message_likes->num_rows();
+                // $this->print($userInfo[$key]);
                 if($value['location_access'] == LOCATION_ACCESS_OFF ){ // means location sharing is off by user
                     $userInfo[$key]['distance'] = "";
                 }
+            }
+
+            foreach ($userInfo as $key => $value) {
+                unset($userInfo[$key]['total_like_count']);
             }
             return $userInfo;
         } catch (Exception $ex) {
@@ -624,13 +666,15 @@ class Api_model extends CI_Model {
             if(!empty($user_settings) && $user_settings['social_accounts'] == "1"){
                 $this->db->select("u.facebookprof as fb_url, u.instaprof as insta_url");
             }
-            $this->db->select("u.userid as user_id,u.name,u.email,u.image,u.thumbnail,u.userbio,u.username,u.contact as phone_no, u.country_code,social_type , u.total_like_count as total_like_count");
+            $this->db->select("u.userid as user_id,u.name,u.email,u.image,u.thumbnail,u.userbio,u.username,u.contact as phone_no, u.country_code,social_type");
+            // $this->db->select("u.userid as user_id,u.name,u.email,u.image,u.thumbnail,u.userbio,u.username,u.contact as phone_no, u.country_code,social_type , u.total_like_count as total_like_count");
             $this->db->from("user u");
             $this->db->where("u.userid",$user_id);
             $query = $this->db->get();
             $userInfo = $query->row_array();
             // $this->print( $userInfo['total_like_count']); 
-            $userInfo['likes'] = (string) ($this->userLikes($user_id) + count($this->mediaLikedByUser($user_id)) + $userInfo['total_like_count']);
+            $userInfo['likes'] = $this->userLikes($user_id);
+            // $userInfo['likes'] = (string) ($this->userLikes($user_id) + count($this->mediaLikedByUser($user_id)) + $userInfo['total_like_count']);
             $userInfo['followers'] = $this->userFollowers($user_id);
             $userInfo['events'] = $this->userEvents($user_id);
         }
@@ -639,22 +683,7 @@ class Api_model extends CI_Model {
     
 
 
-    public function like_unlike_message($user_id,$type){// type 1 = LIKE 2 = UNLIKE
-        switch ($type) {
-            case '1':
-                $this->db->where('userid',$user_id);
-                $this->db->set('total_like_count', 'total_like_count+1', FALSE);
-                $query = $this->db->update('user');
-                return $query; 
-                break;
-            case '2':
-                $this->db->where('userid',$user_id);
-                $this->db->set('total_like_count', 'total_like_count-1', FALSE);
-                $query = $this->db->update('user');
-                return $query;
-                break;
-        }
-    }
+
 
 
     /**
@@ -781,6 +810,7 @@ class Api_model extends CI_Model {
      * Date: 22/02/2018
      */
     public function likesListing($user_id,$loggeduser = 0){
+        // $this->print($user_id);
         $likesArr = array();
         if(!empty($user_id)){
             $this->db->select("u.userid as user_id,u.name,u.username,u.image");
@@ -789,6 +819,7 @@ class Api_model extends CI_Model {
             //eleminate blocked users
             $this->db->where('u.userid NOT IN (SELECT user_id FROM blocked_user WHERE user_id ='.$user_id.' OR blocked_by ='.$user_id.')', NULL, FALSE);
             if($loggeduser!= 0){
+
                 $this->db->where('u.userid NOT IN (SELECT user_id FROM blocked_user WHERE blocked_by ='.$loggeduser.')', NULL, FALSE);
             }
             $this->db->where("ul.user_id", $user_id);
@@ -872,7 +903,7 @@ class Api_model extends CI_Model {
             if(empty($randLoc)){
                 //generate random lat long and insert
                 $latlonArr = $this->generateRandomLoc($data['latitude'], $data['longitude']);
-                if(is_empty($latlonArr)){
+                if(empty($latlonArr)){
                     unset($peopleData[$key]);
                     continue;
                 }

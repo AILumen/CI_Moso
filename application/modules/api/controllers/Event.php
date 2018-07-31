@@ -465,6 +465,7 @@ class Event extends REST_Controller{
             $errorMsgArr['STATUS'] = TRUE;
             $errorMsgArr['APICODERESULT'] = $this->lang->line('APIRESULT_SUCCESS');
             $errorMsgArr['MESSAGE'] = $this->lang->line('success');
+            // $errorMsgArr['VALUE']['DATA'] = json_encode($eventData);
             $errorMsgArr['VALUE']['DATA'] = json_encode($eventData);
             $errorMsgArr['VALUE']['KEY'] = base64_encode($key);
             $errorMsgArr['VALUE']['USERINFO'] = $userInfo;
@@ -1025,6 +1026,7 @@ class Event extends REST_Controller{
         $device_type = isset($postDataArr['device_type']) ? filter_var($postDataArr['device_type'], FILTER_SANITIZE_NUMBER_INT) : '';
         $type = isset($postDataArr['type']) ? filter_var($postDataArr['type'] , FILTER_VALIDATE_INT):'';
         $user_id = isset($postDataArr['user_id']) ? filter_var($postDataArr['user_id'] , FILTER_VALIDATE_INT):'';
+        $message_id = isset($postDataArr['message_id']) ? filter_var($postDataArr['message_id'] , FILTER_SANITIZE_STRING):'';
 
         if(!empty($access_token)){
             // return $access_token;
@@ -1039,7 +1041,7 @@ class Event extends REST_Controller{
             }
             //VALIDATE ACCESS
             $valid = $this->Api_model->validateAccess($access_token);
-            // return $valid; 
+            // return $valid['VALUE']['user_id']; 
             if(isset($valid['STATUS']) && !$valid['STATUS']){
                 //ACCESS TOKEN INVALID
                 $errorMsgArr = array();
@@ -1060,10 +1062,15 @@ class Event extends REST_Controller{
                 return $errorMsgArr;
             }
             
-            if(!empty($type) && !empty($user_id)){
+            if(!empty($type) && !empty($user_id) && !empty($message_id)){
                 switch ($type) {
                     case '1':
-                        $this->Api_model->like_unlike_message($user_id,$type);
+                        $data =  [
+                            'message_id' => $message_id,
+                            'liked_by' => $valid['VALUE']['user_id'],
+                            'message_user_id' => $user_id
+                        ];
+                        $this->Common_model->like_unlike_message($user_id,$type,$data);
                         $errorMsgArr = array();
                         $errorMsgArr['CODE'] = SUCCESS_CODE;
                         $errorMsgArr['STATUS'] = TRUE;
@@ -1072,7 +1079,12 @@ class Event extends REST_Controller{
                         $this->response($errorMsgArr);
                         break;
                     case '2':
-                        $this->Api_model->like_unlike_message($user_id,$type);
+                        $data =  [
+                            'message_id' => $message_id,
+                            'liked_by' => $valid['VALUE']['user_id'],
+                            'message_user_id' => $user_id
+                        ];
+                        $this->Common_model->like_unlike_message($user_id,$type,$data);
                         $errorMsgArr = array();
                         $errorMsgArr['CODE'] = SUCCESS_CODE;
                         $errorMsgArr['STATUS'] = TRUE;

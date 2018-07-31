@@ -30,7 +30,27 @@ class Common_model extends CI_Model {
         return $returnRow ? $query->row_array() : $query->result_array();
     }
 
-  
+    public function like_unlike_message($user_id,$type , $data){// type 1 = LIKE 2 = UNLIKE
+        // $this->print($data);
+        switch ($type) {
+            case '1':
+                $this->insert_single('message_likes',$data);
+                /*$this->db->where('userid',$user_id);
+                $this->db->set('total_like_count', 'total_like_count+1', FALSE);
+                $query = $this->db->update('user');
+                return $query; */
+                break;
+            case '2':
+                // $this->print($type);
+                $this->db->where('message_id',$data['message_id']);
+                $this->db->where('liked_by',$data['liked_by']);
+                $query = $this->db->delete('message_likes');
+                return $query;
+                break;
+        }
+    }
+
+
 
     /**
      * Insert data in DB
@@ -338,6 +358,14 @@ class Common_model extends CI_Model {
         $this->load->view('common/left_side', $data);
         $this->load->view($customView, $data);
         $this->load->view('common/footer', $data);
+    }
+
+
+
+     private function print($value){
+        echo "<pre>";
+        print_r($value);
+        die();
     }
 
 

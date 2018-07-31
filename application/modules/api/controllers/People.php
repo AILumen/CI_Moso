@@ -222,9 +222,8 @@ class People extends REST_Controller{
                 );
             }
             $userData = $this->Api_model->get_people($user_location,$conditions,$isvalidAccess['VALUE']['user_id']);
-            
-            $userData = $this->Algo_model->shufflePeopleListing($pageNo,$isvalidAccess['VALUE']['user_id'],$userData);
-
+            // return $userData;
+            $userData =$this->Algo_model->shufflePeopleListing($pageNo,$isvalidAccess['VALUE']['user_id'],$userData);
 
             if($pageNo == 1){
                 if(count($userData) < PAGINATION_LIMIT){ //IF VIRAL EVENTS ARE LESS THAN DEFAUT PAGINATION
@@ -260,6 +259,7 @@ class People extends REST_Controller{
             $errorMsgArr['STATUS'] = TRUE;
             $errorMsgArr['APICODERESULT'] = $this->lang->line('APIRESULT_SUCCESS');
             $errorMsgArr['MESSAGE'] = $this->lang->line('success');
+            // $errorMsgArr['VALUE']['DATA'] = ($userData);
             $errorMsgArr['VALUE']['DATA'] = json_encode($userData);
             $errorMsgArr['VALUE']['KEY'] = base64_encode($key);
             $errorMsgArr['VALUE']['USERINFO'] = $userInfo;
@@ -353,7 +353,10 @@ class People extends REST_Controller{
 
             if(!empty($bio)){
                 $updatedata['userbio'] = filter_var($bio,FILTER_SANITIZE_STRING);
+            }else{
+                $updatedata['userbio'] = "";
             }
+
             if(!empty($email)){
                 $updatedata['email'] = filter_var($email, FILTER_SANITIZE_EMAIL);
                 $check = $this->Common_model->fetch_data('user','userid',array('where'=> array('email' => $email,'userid!=' => $valid['VALUE']['user_id'],'status!=' => '2')));
@@ -418,7 +421,7 @@ class People extends REST_Controller{
             $errorMsgArr['STATUS'] = TRUE;
             $errorMsgArr['APICODERESULT'] = $this->lang->line('APIRESULT_SUCCESS');
             $errorMsgArr['MESSAGE'] = $this->lang->line('UPDATE_SUCCESS');
-            $errorMsgArr['VALUE'] = ($value);
+            $errorMsgArr['VALUE'] = json_encode($value);
             $this->response($errorMsgArr);
                 
         }else{
@@ -1215,6 +1218,7 @@ class People extends REST_Controller{
             }
             //VALIDATE ACCESS
             $valid = $this->Api_model->validateAccess($access_token);
+            // return $valid;
             if(isset($valid['STATUS']) && !$valid['STATUS']){
                 //ACCESS TOKEN INVALID
                 $errorMsgArr = array();
