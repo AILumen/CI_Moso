@@ -253,6 +253,8 @@ class Common_model extends CI_Model {
      * @return	array
      */
     public function fetch_count($table, $conditions = array()) {
+       /* print_r($conditions);
+        die();*/
         $this->db->from($table);
         //If there are conditions
         if (count($conditions) > 0) {

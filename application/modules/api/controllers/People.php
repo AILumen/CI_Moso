@@ -418,7 +418,7 @@ class People extends REST_Controller{
             $errorMsgArr['STATUS'] = TRUE;
             $errorMsgArr['APICODERESULT'] = $this->lang->line('APIRESULT_SUCCESS');
             $errorMsgArr['MESSAGE'] = $this->lang->line('UPDATE_SUCCESS');
-            $errorMsgArr['VALUE'] = json_encode($value);
+            $errorMsgArr['VALUE'] = ($value);
             $this->response($errorMsgArr);
                 
         }else{

@@ -119,11 +119,15 @@ define('SECRET', '/QFcnOVKTUSVnGPmfbcnzQ==');
 
 
 //instagram social login params(test)
-define('client_id', '1b0e921b175d4eac986cb460508ebc91');
+/*define('client_id', '1b0e921b175d4eac986cb460508ebc91');
 define('client_secret', ' 441b9fcd72884f99aeb45b740ffb4334');
 define('grant_type', 'authorization_code');
-define('redirect_uri', 'https://appinventiv.com/');
+define('redirect_uri', 'https://appinventiv.com/');*/
 
+define('client_id', 'e6362b20963f4fa6bfffa4673a44f35c');
+define('client_secret', ' 2877ae1de7d74b96925bdac937db8371');
+define('grant_type', 'authorization_code');
+define('redirect_uri', 'https://appinventiv.com/');
 
 //aws Ses start
 

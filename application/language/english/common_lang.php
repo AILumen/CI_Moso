@@ -239,3 +239,6 @@ $lang['no_user'] = "No user found!";
 
 $lang['login_welcome'] = 'You have successfully logged in';
 $lang['welcome'] = 'Welcome!';
+$lang['INVALID_PARAM'] = 'Invalid Parameters.';
+$lang['MESSAGE_LIKED'] = 'Message liked.';
+$lang['MESSAGE_UNLIKED'] = 'Message unliked.';

@@ -617,24 +617,46 @@ class Api_model extends CI_Model {
     public function userInfo($user_id){
         $userInfo = array();
         if(!empty($user_id)){
+            // return $this->userLikes($user_id);
             // return count($this->mediaLikedByUser($user_id));
             // die();
             $user_settings = user_settings($user_id, array("social_accounts"));
             if(!empty($user_settings) && $user_settings['social_accounts'] == "1"){
                 $this->db->select("u.facebookprof as fb_url, u.instaprof as insta_url");
             }
-            $this->db->select("u.userid as user_id,u.name,u.email,u.image,u.thumbnail,u.userbio,u.username,u.contact as phone_no, u.country_code,social_type");
+            $this->db->select("u.userid as user_id,u.name,u.email,u.image,u.thumbnail,u.userbio,u.username,u.contact as phone_no, u.country_code,social_type , u.total_like_count as total_like_count");
             $this->db->from("user u");
             $this->db->where("u.userid",$user_id);
             $query = $this->db->get();
             $userInfo = $query->row_array();
-            $userInfo['likes'] = (string) ($this->userLikes($user_id) + count($this->mediaLikedByUser($user_id)));
+            // $this->print( $userInfo['total_like_count']); 
+            $userInfo['likes'] = (string) ($this->userLikes($user_id) + count($this->mediaLikedByUser($user_id)) + $userInfo['total_like_count']);
             $userInfo['followers'] = $this->userFollowers($user_id);
             $userInfo['events'] = $this->userEvents($user_id);
         }
         return $userInfo;
     }
     
+
+
+    public function like_unlike_message($user_id,$type){// type 1 = LIKE 2 = UNLIKE
+        switch ($type) {
+            case '1':
+                $this->db->where('userid',$user_id);
+                $this->db->set('total_like_count', 'total_like_count+1', FALSE);
+                $query = $this->db->update('user');
+                return $query; 
+                break;
+            case '2':
+                $this->db->where('userid',$user_id);
+                $this->db->set('total_like_count', 'total_like_count-1', FALSE);
+                $query = $this->db->update('user');
+                return $query;
+                break;
+        }
+    }
+
+
     /**
      * Function name: userLikes
      * Description- fetch user likes
@@ -1422,7 +1444,11 @@ class Api_model extends CI_Model {
         return $return;
     }
 
-
+    private function print($value){
+        echo "<pre>";
+        print_r($value);
+        die();
+    }
 
     
 }

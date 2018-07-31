@@ -99,6 +99,9 @@ class Event extends REST_Controller{
                 case "mediaDelete" :
                     $response = $this->mediaDelete($postDataArr);
                     break;
+                case "message_like_unlike" :
+                    $response = $this->message_like_unlike($postDataArr);
+                    break;
                 default :
                     $response = array();
                     $response['CODE'] = FAILURE_CODE;
@@ -1014,17 +1017,104 @@ class Event extends REST_Controller{
              $this->response($errorMsgArr);
          }
    }
+
+
+    private function message_like_unlike($postDataArr){
+        // return $postDataArr;
+        $access_token = isset($postDataArr['access_token']) ? filter_var($postDataArr['access_token'], FILTER_SANITIZE_STRING) : '';
+        $device_type = isset($postDataArr['device_type']) ? filter_var($postDataArr['device_type'], FILTER_SANITIZE_NUMBER_INT) : '';
+        $type = isset($postDataArr['type']) ? filter_var($postDataArr['type'] , FILTER_VALIDATE_INT):'';
+        $user_id = isset($postDataArr['user_id']) ? filter_var($postDataArr['user_id'] , FILTER_VALIDATE_INT):'';
+
+        if(!empty($access_token)){
+            // return $access_token;
+            if(!empty($device_type) && $device_type!= 1 && $device_type!= 2){ //1 = ANDROID 2 = IOS
+                //INVALID DEVICE TYPE ERROR
+                $errorMsgArr = array();
+                $errorMsgArr['CODE'] = INVALID_ACCESS_CODE;
+                $errorMsgArr['STATUS'] = FALSE;
+                $errorMsgArr['APICODERESULT'] = $this->lang->line('APIRESULT_SUCCESS');
+                $errorMsgArr['MESSAGE'] = $this->lang->line('INVALID_ACCESS');
+                return $errorMsgArr;
+            }
+            //VALIDATE ACCESS
+            $valid = $this->Api_model->validateAccess($access_token);
+            // return $valid; 
+            if(isset($valid['STATUS']) && !$valid['STATUS']){
+                //ACCESS TOKEN INVALID
+                $errorMsgArr = array();
+                $errorMsgArr['CODE'] = INVALID_ACCESS_CODE;
+                $errorMsgArr['STATUS'] = FALSE;
+                $errorMsgArr['APICODERESULT'] = $this->lang->line('APIRESULT_SUCCESS');
+                $errorMsgArr['MESSAGE'] = $valid['MESSAGE'];
+                $this->response($errorMsgArr);
+            }
+
+            if(!empty($type) && $type!= 1 && $type!= 2){ //1 = LIKE 2 = UNLIKE
+                //INVALID ACTION TYPE ERROR
+                $errorMsgArr = array();
+                $errorMsgArr['CODE'] = INVALID_PARAM;
+                $errorMsgArr['STATUS'] = FALSE;
+                $errorMsgArr['APICODERESULT'] = $this->lang->line('APIRESULT_SUCCESS');
+                $errorMsgArr['MESSAGE'] = $this->lang->line('INVALID_PARAM');
+                return $errorMsgArr;
+            }
+            
+            if(!empty($type) && !empty($user_id)){
+                switch ($type) {
+                    case '1':
+                        $this->Api_model->like_unlike_message($user_id,$type);
+                        $errorMsgArr = array();
+                        $errorMsgArr['CODE'] = SUCCESS_CODE;
+                        $errorMsgArr['STATUS'] = TRUE;
+                        $errorMsgArr['APICODERESULT'] = $this->lang->line('APIRESULT_SUCCESS');
+                        $errorMsgArr['MESSAGE'] = $this->lang->line('MESSAGE_LIKED');
+                        $this->response($errorMsgArr);
+                        break;
+                    case '2':
+                        $this->Api_model->like_unlike_message($user_id,$type);
+                        $errorMsgArr = array();
+                        $errorMsgArr['CODE'] = SUCCESS_CODE;
+                        $errorMsgArr['STATUS'] = TRUE;
+                        $errorMsgArr['APICODERESULT'] = $this->lang->line('APIRESULT_SUCCESS');
+                        $errorMsgArr['MESSAGE'] = $this->lang->line('MESSAGE_UNLIKED');
+                        $this->response($errorMsgArr);
+                        break;
+                }
+            }else{
+                //PARAM MISSING
+                $errorMsgArr = array();
+                $errorMsgArr['CODE'] = PARAM_MISSING_CODE;
+                $errorMsgArr['STATUS'] = FALSE;
+                $errorMsgArr['APICODERESULT'] = $this->lang->line('APIRESULT_SUCCESS');
+                $errorMsgArr['MESSAGE'] = $this->lang->line('PARAM_MISSING');
+                $this->response($errorMsgArr);
+            }
+        }else{
+            //ACCESS TOKEN MISSING ERROR
+            log_message('error', __FUNCTION__.'Token Missing'.json_encode($postDataArr));
+            $errorMsgArr = array();
+            $errorMsgArr['CODE'] = INVALID_ACCESS_CODE;
+            $errorMsgArr['STATUS'] = FALSE;
+            $errorMsgArr['APICODERESULT'] = $this->lang->line('APIRESULT_SUCCESS');
+            $errorMsgArr['MESSAGE'] = $this->lang->line('ACCESSTOKEN_MISSING');
+            $this->response($errorMsgArr);
+        }
+    }
    /*
      * FunctionName: medialike
      * Description: like media
      * @params: array
      * @return: array
      * **/
-   private function medialike($postDataArr){
-       $access_token = isset($postDataArr['access_token']) ? filter_var($postDataArr['access_token'], FILTER_SANITIZE_STRING) : '';
+    private function medialike($postDataArr){
+        // return $postDataArr;
+        $access_token = isset($postDataArr['access_token']) ? filter_var($postDataArr['access_token'], FILTER_SANITIZE_STRING) : '';
         $device_type = isset($postDataArr['device_type']) ? filter_var($postDataArr['device_type'], FILTER_SANITIZE_NUMBER_INT) : '';
-        $media_id = isset($postDataArr['media_id']) ? filter_var($postDataArr['media_id'],FILTER_SANITIZE_STRING) : '';
+        $media_id = isset($postDataArr['media_id']) ? filter_var($postDataArr['media_id'],FILTER_SANITIZE_STRING):'';
+
         if(!empty($access_token)){
+            // return $access_token;
             if(!empty($device_type) && $device_type!= 1 && $device_type!= 2){ //1 = ANDROID 2 = IOS
                 //INVALID DEVICE TYPE ERROR
                 $errorMsgArr = array();
@@ -1049,6 +1139,7 @@ class Event extends REST_Controller{
             if(!empty($media_id)){
                 //check the records exists
                 $check = $this->Common_model->fetch_data('media_like','id',array('where' => array('media_id' => $media_id,'liked_by' => $valid['VALUE']['user_id'])),TRUE);
+                // return $check;
                 if(!empty($check)){
                     //YOU HAVE ALREADY LIKED THIS EVENT
                     $errorMsgArr = array();
@@ -1064,7 +1155,7 @@ class Event extends REST_Controller{
                     'liked_by' => $valid['VALUE']['user_id'],
                     'created_on' => time(),
                 );
-                
+                // return $insertArr;
                 $this->Common_model->insert_single('media_like',$insertArr);
                 //FETCH TOTAL MEDIA LIKE COUNT 
                 $totalCount = $this->Common_model->fetch_count("media_like", array("where" => array("media_id" => $media_id)));
@@ -1095,7 +1186,7 @@ class Event extends REST_Controller{
             $errorMsgArr['MESSAGE'] = $this->lang->line('ACCESSTOKEN_MISSING');
             $this->response($errorMsgArr);
         }
-   }
+    }
    
    /*
      * FunctionName: mediaunlike
@@ -1131,6 +1222,7 @@ class Event extends REST_Controller{
             
             if(!empty($media_id)){
                 $check = $this->Common_model->fetch_data('media_like','id',array('where' => array('media_id' => $media_id,'liked_by' => $valid['VALUE']['user_id'])),TRUE);
+                // return $check;
                 if(empty($check)){
                     //YOU HAVE ALREADY LIKED THIS USER
                     $errorMsgArr = array();
