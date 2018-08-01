@@ -1000,6 +1000,7 @@ class People extends REST_Controller{
 	* @return: array
 	* **/
    	private function markFollowing($loggeduser,$data){
+            // $this->print($data);
            if(!empty($data)){
                foreach ($data as $key => $user){
                    $response = $this->Common_model->fetch_data('user_follower','id',array('where' => array('user_id' => $user['user_id'],'follower_id' => $loggeduser, "status" => ACTIVE)));
@@ -1228,10 +1229,43 @@ class People extends REST_Controller{
                 $errorMsgArr['MESSAGE'] = $valid['MESSAGE'];
                 $this->response($errorMsgArr);
             }
-            $listing = $this->Api_model->likesListing($user_id,$valid['VALUE']['user_id']);
+            $likes_listing = $this->Api_model->likesListing($user_id,$valid['VALUE']['user_id']);
+            $message_listing = $this->Api_model->message_likes($user_id);
+            $media_likes = $this->Api_model->media_likes($user_id);
+            $final_response = [];
+            $arr = [];
             //MAKR IF THE LOGGED USER FOLLOWS THE USER
-            if(!empty($listing)){
-                $listing = $this->markFollowing($valid['VALUE']['user_id'],$listing);
+            if(!empty($likes_listing)){
+                $likes_listing = $this->markFollowing($valid['VALUE']['user_id'],$likes_listing);
+            }
+            // return $likes_listing;
+            if(!empty($message_listing)){
+                $message_listing = $this->markFollowing($valid['VALUE']['user_id'],$message_listing);
+            }
+            // return $message_listing;
+
+            if(!empty($media_likes)){
+                $media_likes = $this->markFollowing($valid['VALUE']['user_id'],$media_likes);
+            }
+            foreach ($likes_listing as $key => $value) {
+                if( !in_array($value['user_id'], $arr) ){
+                    array_push($final_response, $value);
+                    array_push($arr,$value['user_id']);
+                }
+            }
+
+            foreach ($message_listing as $key => $value) {
+                if( !in_array($value['user_id'], $arr) ){
+                    array_push($final_response, $value);
+                    array_push($arr,$value['user_id']);
+                }
+            }
+
+            foreach ($media_likes as $key => $value) {
+                if( !in_array($value['user_id'], $arr) ){
+                    array_push($final_response, $value);
+                    array_push($arr,$value['user_id']);
+                }
             }
             //SUCCESS
             $errorMsgArr = array();
@@ -1239,7 +1273,7 @@ class People extends REST_Controller{
             $errorMsgArr['STATUS'] = TRUE;
             $errorMsgArr['APICODERESULT'] = $this->lang->line('APIRESULT_SUCCESS');
             $errorMsgArr['MESSAGE'] = $this->lang->line('APIRESULT_SUCCESS');
-            $errorMsgArr['VALUE'] = $listing;
+            $errorMsgArr['VALUE'] = $final_response;
             $this->response($errorMsgArr);
        }else{
            //ACCESS TOKEN MISSING ERROR
@@ -1251,6 +1285,21 @@ class People extends REST_Controller{
             $this->response($errorMsgArr);
        }
    	}
+
+    /*public function final_response($array,$final_response = []){
+        // $final_response = [];
+        $arr = [];
+        foreach ($array as $key => $value) {
+            if( !in_array($value['user_id'], $arr) ){
+                array_push($final_response, $value);
+                array_push($arr,$value['user_id']);
+            }
+        }
+        return $final_response;
+    }*/
+
+
+
 	/*
 	* FunctionName: userFollowList
 	* Description: list of other user followers
@@ -2208,5 +2257,13 @@ class People extends REST_Controller{
             $this->response($errorMsgArr);
         }
    	}
+
+
+
+    private function print($value){
+        echo "<pre>";
+        print_r($value);
+        die();
+    }
 }
 

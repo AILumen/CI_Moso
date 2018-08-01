@@ -810,10 +810,9 @@ class Api_model extends CI_Model {
      * Date: 22/02/2018
      */
     public function likesListing($user_id,$loggeduser = 0){
-        // $this->print($user_id);
         $likesArr = array();
         if(!empty($user_id)){
-            $this->db->select("u.userid as user_id,u.name,u.username,u.image");
+            $this->db->select("u.userid as user_id,u.name,u.username,u.image , ul.created_on as user_likes_created_on");
             $this->db->from("user_likes ul");
             $this->db->join('user u', "(u.userid = ul.liked_by AND ul.status = '".ACTIVE."')", 'inner');
             //eleminate blocked users
@@ -828,6 +827,43 @@ class Api_model extends CI_Model {
         }
         return $likesArr;
     }
+
+    /**
+     * Function name: likesListing
+     * Description- fetch message_likes listing
+     * Response-Array
+     * Date: 1/AUG/2018
+     */
+    public function message_likes($user_id){
+        $data = [];
+        $data = $this->db->where('message_user_id',$user_id)
+            ->from('message_likes as ml')
+            ->join('user as u','ml.liked_by = u.userid')
+            ->select('u.userid as user_id ,u.name,u.username,u.image, ml.message_id as message_id , ml.liked_by as liked_by , ml.message_user_id as message_user_id, ml.created_on as message_likes_created_on')
+            ->get();
+        $data = $data->result_array();
+        return $data;
+    }
+
+    /**
+     * Function name: likesListing
+     * Description- fetch media_likes listing
+     * Response-Array
+     * Date: 1/AUG/2018
+     */
+    public function media_likes($user_id){
+        $data = [];
+        $data = $this->db->where('uploaded_by',$user_id)
+            ->from('event_media as em')
+            ->join('media_like as ml','ml.media_id = em.id')
+            ->join('user as u','ml.liked_by = u.userid')
+            ->select('em.uploaded_by , em.evt_id , em.media_url , em.media_type , em.createdon as event_media_createdon , ml.media_id , ml.liked_by , ml.created_on as media_like_created_on , u.userid as user_id ,u.name,u.username,u.image')
+            ->get();
+        $data = $data->result_array();
+        return $data;
+    }
+
+
     /**
      * Function name: likesListing
      * Description- fetch likes listing

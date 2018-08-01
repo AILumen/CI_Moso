@@ -1068,7 +1068,9 @@ class Event extends REST_Controller{
                         $data =  [
                             'message_id' => $message_id,
                             'liked_by' => $valid['VALUE']['user_id'],
-                            'message_user_id' => $user_id
+                            'message_user_id' => $user_id,
+                            'created_on' => time(),
+                            'updated_on' => time()
                         ];
                         $this->Common_model->like_unlike_message($user_id,$type,$data);
                         $errorMsgArr = array();
